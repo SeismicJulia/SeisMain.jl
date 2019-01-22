@@ -31,7 +31,6 @@ In file `out`, the binned data is created.
 *Credits: Aaron Stanton, 2017*
 
 """
-
 function SeisBinData(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,ogy=0,omx=0,omy=0,ohx=0,ohy=0,oh=0,oaz=0,dsx=1,dsy=1,dgx=1,dgy=1,dmx=1,dmy=1,dhx=1,dhy=1,dh=1,daz=1,min_isx=0,max_isx=0,min_isy=0,max_isy=0,min_igx=0,max_igx=0,min_igy=0,max_igy=0,min_imx=0,max_imx=0,min_imy=0,max_imy=0,min_ihx=0,max_ihx=0,min_ihy=0,max_ihy=0,min_ih=0,max_ih=0,min_iaz=0,max_iaz=0,ntrace=10000)
 
 
@@ -111,7 +110,7 @@ function SeisBinData(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,og
 
 	stream = open(ParseHeaderName(in))
 
-	@compat nx_in = round(Int,filesize(stream)/(4*length(fieldnames(Header))))
+	nx_in = round(Int,filesize(stream)/(4*length(fieldnames(Header))))
 
 	seek(stream, header_count["n1"])
 	nt = read(stream,Int32)

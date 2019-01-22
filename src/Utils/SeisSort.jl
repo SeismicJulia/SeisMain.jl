@@ -68,7 +68,7 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     Seismic.FetchTraces(in,out)
     tmp = join(["tmp_SeisSort_",string(Int(floor(rand()*100000)))])
     cp(out,tmp,remove_destination=true);
-    @compat SeisProcessHeaders(out, tmp, [UpdateHeader],
+    SeisProcessHeaders(out, tmp, [UpdateHeader],
                                [Dict(:itmin=>1,:itmax=>nt)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
     filename_h_out = join([DATAPATH out "@headers@"])

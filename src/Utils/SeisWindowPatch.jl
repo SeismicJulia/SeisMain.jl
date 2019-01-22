@@ -11,7 +11,6 @@
 **OUT**
 *Credits: AS, FC, 2017*
 """
-
 function SeisWindowPatch(in::String,out::String;key=[],minval=[],maxval=[],it_nt=9e9)
   println("processing patch ",out)
   DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
@@ -99,7 +98,7 @@ function FetchTracesPatch(in::String, out::String; ntrace=500, itmin=round(Int,1
       itmax = round(Int,nt)
     end
 
-    @compat nhead = length(fieldnames(Header)) 
+    nhead = length(fieldnames(Header)) 
 
     while itrace <= NX
       if (itrace > 1)
@@ -125,8 +124,8 @@ end
 
 ###############################################################################
 
-function SeekTracesPatch!{T}(d::AbstractArray{T,2}, stream_in::IOStream,
-                        h::Array{Header,1},itmin,itmax,nt,ntrace)
+function SeekTracesPatch!(d::AbstractArray{T,2}, stream_in::IOStream,
+                        h::Array{Header,1},itmin,itmax,nt,ntrace) where T
 
     d1 = zeros(Float32,nt)
     for ix = 1 : ntrace

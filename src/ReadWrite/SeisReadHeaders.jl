@@ -2,10 +2,10 @@ function SeisReadHeaders(filename;group="all",key=[],itrace=1,ntrace=100)
 
 	filename_h = ParseHeaderName(filename)
 	stream_h = open(filename_h)
-	@compat nhead = length(fieldnames(Header))
+	nhead = length(fieldnames(Header))
 	curr = zeros(length(key),1)
 	prev = 1*curr
-	@compat nx = round(Int,filesize(stream_h)/(4*length(fieldnames(Header)))) - itrace + 1
+	nx = round(Int,filesize(stream_h)/(4*length(fieldnames(Header)))) - itrace + 1
 	if (group == "all")
 		ntrace = nx
 	elseif (group == "gather")
@@ -27,12 +27,12 @@ function SeisReadHeaders(filename;group="all",key=[],itrace=1,ntrace=100)
 	position_h = 4*nhead*(itrace-1)
 	seek(stream_h,position_h)
 
-	h1 = read(stream_h,Header32Bits,nhead*ntrace)
+	h1 = read!(stream_h,Array{Header32Bits}(undef,nhead*ntrace))
 	h1 = reshape(h1,nhead,round(Int,ntrace))
 	h = Header[]
 	for itrace = 1 : ntrace
-		h = push!(h,BitsToHeader(h1[:,itrace]))    	
-	end    
+		h = push!(h,BitsToHeader(h1[:,itrace]))
+	end
 
 	close(stream_h)
 	return h

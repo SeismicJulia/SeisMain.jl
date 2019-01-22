@@ -31,7 +31,7 @@ function SeisWindowHeadersPatch(in, out; key=[], minval=[], maxval=[], tmin=0,
     DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
     filename_d_out = join([DATAPATH out "@data@"])
     filename_h_out = join([DATAPATH out "@headers@"])
-    @compat nhead = length(fieldnames(Header))
+    nhead = length(fieldnames(Header))
 
 
     stream_h = open(filename_h_out)

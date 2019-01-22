@@ -16,7 +16,6 @@ note that windowing along the time axis is achieved by using the key "t".
 
 *Credits: AS, 2015*
 """
-
 function SeisWindow(in::String,out::String;key=[],minval=[],maxval=[])
     DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
     extent = ReadTextHeader(in)
@@ -45,7 +44,7 @@ println("itmin= ",itmin," itmax= ",itmax)
                       tmax=tmax)
     FetchTraces(in,out;itmin=itmin,itmax=itmax)
     tmp = join(["tmp_SeisWindow_",string(round(Int,rand()*100000))])
-    @compat SeisProcessHeaders(out, tmp, [UpdateHeader],
+    SeisProcessHeaders(out, tmp, [UpdateHeader],
                                [Dict(:itmin=>itmin,:itmax=>itmax)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
     filename_h_out = join([DATAPATH out "@headers@"])
@@ -90,8 +89,8 @@ function FetchTraces(in::String, out::String; ntrace=500, itmin=round(Int,1),
     close(stream_in)
 end
 
-function SeekTraces!{T}(d::AbstractArray{T,2}, stream_in::IOStream,
-                        h::Array{Header,1},itmin,itmax,nt,ntrace)
+function SeekTraces!(d::AbstractArray{T,2}, stream_in::IOStream,
+                     h::Array{Header,1},itmin,itmax,nt,ntrace) where T
     d1 = zeros(Float32,nt)
     for ix = 1 : ntrace
 	position = 4*nt*(h[ix].tracenum-1)

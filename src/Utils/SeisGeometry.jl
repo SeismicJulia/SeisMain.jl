@@ -26,7 +26,6 @@ the .seish file is updated with the following information:
 *Credits: A. Stanton, 2017*
 
 """
-
 function SeisGeometry(in; ang=90, gamma=1, osx=0, osy=0, ogx=0, ogy=0, omx=0,
                       omy=0, ohx=0, ohy=0, oh=0, oaz=0, dsx=1, dsy=1, dgx=1,
                       dgy=1, dmx=1, dmy=1, dhx=1, dhy=1, dh=1, daz=1)
@@ -45,7 +44,7 @@ function SeisGeometry(in; ang=90, gamma=1, osx=0, osy=0, ogx=0, ogy=0, omx=0,
     filename = ParseHeaderName(in)
     stream = open(filename,"r+")
     nhead = 27
-    @compat nx = round(Int,filesize(stream)/(4*length(fieldnames(Header))))
+    nx = round(Int,filesize(stream)/(4*length(fieldnames(Header))))
 
     naz=convert(Int32,360/daz)
 
@@ -78,7 +77,7 @@ function SeisGeometry(in; ang=90, gamma=1, osx=0, osy=0, ogx=0, ogy=0, omx=0,
 	h.ihy = convert(Int32,round((hy_rot-ohy)/dhy))
 	h.ih = convert(Int32,round((h.h-oh)/dh))
 
-	h.iaz = convert(Int32,round((h.az-oaz)/daz))<naz?convert(Int32,round((h.az-oaz)/daz)):0
+	h.iaz = convert(Int32,round((h.az-oaz)/daz))<naz ? convert(Int32,round((h.az-oaz)/daz)) : 0
 
 	PutHeader(stream,h,j)
   end

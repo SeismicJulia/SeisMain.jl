@@ -23,7 +23,6 @@ Creates overlapping 5d patches from a 5d volume
 
 *Credits: A. Stanton, F. Carozzi, 2017*
 """
-
 function SeisPatch(in::String, out::String; style="sxsygxgy", min_isx=0,
                    max_isx=0, min_isy=0, max_isy=0, min_igx=0, max_igx=0,
                    min_igy=0, max_igy=0, min_imx=0, max_imx=0, min_imy=0,
@@ -227,7 +226,7 @@ for it_W = 1 : it_NW
 end
 
 #*******************************************************************************
-type Patch
+mutable struct Patch
      in
      name
      key
