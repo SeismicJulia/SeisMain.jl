@@ -1,5 +1,6 @@
 module SeisMain
-    using Compat
+    using Printf
+    using Statistics
     include("ReadWrite/ReadWrite.jl")
     include("Utils/Utils.jl")
 end

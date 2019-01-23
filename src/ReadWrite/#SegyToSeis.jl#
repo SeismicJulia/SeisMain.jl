@@ -67,11 +67,9 @@ function SegyToSeis(filename_in,filename_out;format="segy",swap_bytes=true,input
 		position = file_hsize + total*(j-1)*4 + segy_count["trace"]
 		seek(stream,position)
 		if (input_type == "ieee")
-			d = Array{Float32}(undef,nt);	
-			read!(stream,d)
+			d = read(stream,Float32,nt)
 		else
-			d = Array{IBMFloat32}(undef,nt);			
-			read!(stream,d)
+			d = read(stream,IBMFloat32,nt)
 		end
 		if (swap_bytes==true && input_type == "ieee")
 			d = bswap_vector(d)

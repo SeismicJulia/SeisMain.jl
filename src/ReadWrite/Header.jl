@@ -1,4 +1,4 @@
-type Header
+mutable struct Header
     tracenum::Int32
     o1::Float32
     n1::Int32
@@ -74,7 +74,7 @@ function InitSeisHeader()
 end
 
 function GrabHeader(stream,j)
-    @compat position = 4*length(fieldnames(Header))*(j-1)
+    position = 4*length(fieldnames(Header))*(j-1)
     seek(stream,position)
     h = InitSeisHeader()
     h.tracenum = read(stream,typeof(h.tracenum))
@@ -112,7 +112,7 @@ function GrabHeader(stream,j)
 end
 
 function PutHeader(stream,h,j)
-    @compat position = 4*length(fieldnames(Header))*(j-1)
+    position = 4*length(fieldnames(Header))*(j-1)
     seek(stream,position)
     write(stream,h.tracenum)
     write(stream,h.o1)
@@ -223,7 +223,7 @@ end
 function GetNumTraces(in)
 
     filename_h = ParseHeaderName(in)
-    @compat nhead = length(fieldnames(Header))
+    nhead = length(fieldnames(Header))
     stream_h = open(filename_h)
     nx = round(Int,filesize(stream_h)/(nhead*4))
     close(stream_h)
@@ -234,10 +234,10 @@ end
 function ParseHeaderName(filename::AbstractString)
 
     f = open(filename,"r")
-    fstring = readstring(f)
+    fstring = read(f,String)
     close(f)
-    ini = rsearchindex(fstring, "\theaders=")
-    ini == 0 ? headers = "NULL" : headers = fstring[search(fstring, r"\theaders=.*", ini)][11:end-1]
+    ini = first(something(findlast("\theaders=",fstring), 0:-1))
+    ini == 0 ? headers = "NULL" : headers = fstring[something(findnext(r"\theaders=.*", fstring, ini), 0:-1)][11:end-1]
     return headers
 
 end
@@ -245,10 +245,10 @@ end
 function ParseDataName(filename::AbstractString)
 
     f = open(filename,"r")
-    fstring = readstring(f)
+    fstring = read(f,String)
     close(f)
-    ini = rsearchindex(fstring, "\tin=")
-    ini == 0 ? in = "NULL" : in = fstring[search(fstring, r"\tin=.*", ini)][6:end-1]
+    ini = first(something(findlast("\tin=",fstring), 0:-1))
+    ini == 0 ? in = "NULL" : in = fstring[something(findnext(r"\tin=.*", fstring, ini), 0:-1)][6:end-1]
 
     return in
 
@@ -257,10 +257,10 @@ end
 function ParseDataFormat(filename::AbstractString)
 
     f = open(filename,"r")
-    fstring = readstring(f)
+    fstring = read(f,String)
     close(f)
-    ini = rsearchindex(fstring, "\tdata_format=")
-    ini == 0 ? data_format = "native_float" : data_format = fstring[search(fstring, r"\tdata_format=.*", ini)][15:end-1]
+    ini = first(something(findlast("\tdata_format=",fstring), 0:-1))
+    ini == 0 ? data_format = "native_float" : data_format = fstring[something(findnext(r"\tdata_format=.*", fstring, ini), 0:-1)][15:end-1]
     return data_format
 
 end
@@ -268,10 +268,10 @@ end
 function ParseDataESize(filename::AbstractString)
 
     f = open(filename,"r")
-    fstring = readstring(f)
+    fstring = read(f,String)
     close(f)
-    ini = rsearchindex(fstring, "\tesize=")
-    ini == 0 ? esize = Int32(4) : esize = parse(Int32, fstring[search(fstring, r"\tesize=.*", ini)][8:end])
+    ini = first(something(findlast("\tesize=",fstring), 0:-1))
+    ini == 0 ? esize = Int32(4) : esize = parse(Int32, fstring[something(findnext(r"\tesize=.*", fstring, ini), 0:-1)][8:end])
     return esize
 
 end
@@ -287,7 +287,7 @@ function ExtractHeader(h::Array{Header,1},key::AbstractString)
 
 end
 
-type Extent
+mutable struct Extent
     n1::Int32
     n2::Int32
     n3::Int32
@@ -319,60 +319,60 @@ end
 function ReadTextHeader(filename)
 
     f = open(filename,"r")
-    fstring = readstring(f)
+    fstring = read(f,String)
     close(f)
-    ini = rsearchindex(fstring, "\tn1=")
-    ini == 0 ? n1 = Int32(1) : n1 = parse(Int32, fstring[search(fstring, r"\tn1=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\tn2=")
-    ini == 0 ? n2 = Int32(1) : n2 = parse(Int32, fstring[search(fstring, r"\tn2=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\tn3=")
-    ini == 0 ? n3 = Int32(1) : n3 = parse(Int32, fstring[search(fstring, r"\tn3=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\tn4=")
-    ini == 0 ? n4 = Int32(1) : n4 = parse(Int32, fstring[search(fstring, r"\tn4=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\tn5=")
-    ini == 0 ? n5 = Int32(1) : n5 = parse(Int32, fstring[search(fstring, r"\tn5=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\to1=")
-    ini == 0 ? o1 = Float32(0) : o1 = parse(Float32, fstring[search(fstring, r"\to1=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\to2=")
-    ini == 0 ? o2 = Float32(0) : o2 = parse(Float32, fstring[search(fstring, r"\to2=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\to3=")
-    ini == 0 ? o3 = Float32(0) : o3 = parse(Float32, fstring[search(fstring, r"\to3=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\to4=")
-    ini == 0 ? o4 = Float32(0) : o4 = parse(Float32, fstring[search(fstring, r"\to4=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\to5=")
-    ini == 0 ? o5 = Float32(0) : o5 = parse(Float32, fstring[search(fstring, r"\to5=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\td1=")
-    ini == 0 ? d1 = Float32(1) : d1 = parse(Float32, fstring[search(fstring, r"\td1=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\td2=")
-    ini == 0 ? d2 = Float32(1) : d2 = parse(Float32, fstring[search(fstring, r"\td2=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\td3=")
-    ini == 0 ? d3 = Float32(1) : d3 = parse(Float32, fstring[search(fstring, r"\td3=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\td4=")
-    ini == 0 ? d4 = Float32(1) : d4 = parse(Float32, fstring[search(fstring, r"\td4=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\td5=")
-    ini == 0 ? d5 = Float32(1) : d5 = parse(Float32, fstring[search(fstring, r"\td5=.*", ini)][5:end])
-    ini = rsearchindex(fstring, "\tlabel1=")
-    ini == 0 ? label1 = "" : label1 = fstring[search(fstring, r"\tlabel1=.*", ini)][10:end-1]
-    ini = rsearchindex(fstring, "\tlabel2=")
-    ini == 0 ? label2 = "" : label2 = fstring[search(fstring, r"\tlabel2=.*", ini)][10:end-1]
-    ini = rsearchindex(fstring, "\tlabel3=")
-    ini == 0 ? label3 = "" : label3 = fstring[search(fstring, r"\tlabel3=.*", ini)][10:end-1]
-    ini = rsearchindex(fstring, "\tlabel4=")
-    ini == 0 ? label4 = "" : label4 = fstring[search(fstring, r"\tlabel4=.*", ini)][10:end-1]
-    ini = rsearchindex(fstring, "\tlabel5=")
-    ini == 0 ? label5 = "" : label5 = fstring[search(fstring, r"\tlabel5=.*", ini)][10:end-1]
-    ini = rsearchindex(fstring, "\tunit1=")
-    ini == 0 ? unit1 = "" : unit1 = fstring[search(fstring, r"\tunit1=.*", ini)][9:end-1]
-    ini = rsearchindex(fstring, "\tunit2=")
-    ini == 0 ? unit2 = "" : unit2 = fstring[search(fstring, r"\tunit2=.*", ini)][9:end-1]
-    ini = rsearchindex(fstring, "\tunit3=")
-    ini == 0 ? unit3 = "" : unit3 = fstring[search(fstring, r"\tunit3=.*", ini)][9:end-1]
-    ini = rsearchindex(fstring, "\tunit4=")
-    ini == 0 ? unit4 = "" : unit4 = fstring[search(fstring, r"\tunit4=.*", ini)][9:end-1]
-    ini = rsearchindex(fstring, "\tunit5=")
-    ini == 0 ? unit5 = "" : unit5 = fstring[search(fstring, r"\tunit5=.*", ini)][9:end-1]
-    ini = rsearchindex(fstring, "\ttitle=")
-    ini == 0 ? title = "" : title = fstring[search(fstring, r"\ttitle=.*", ini)][9:end-1]
+    ini = first(something(findlast("\tn1=",fstring),0:-1))
+    ini == 0 ? n1 = Int32(1) : n1 = parse(Int32, fstring[something(findnext(r"\tn1=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\tn2=",fstring),0:-1))
+    ini == 0 ? n2 = Int32(1) : n2 = parse(Int32, fstring[something(findnext(r"\tn2=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\tn3=",fstring),0:-1))
+    ini == 0 ? n3 = Int32(1) : n3 = parse(Int32, fstring[something(findnext(r"\tn3=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\tn4=",fstring),0:-1))
+    ini == 0 ? n4 = Int32(1) : n4 = parse(Int32, fstring[something(findnext(r"\tn4=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\tn5=",fstring),0:-1))
+    ini == 0 ? n5 = Int32(1) : n5 = parse(Int32, fstring[something(findnext(r"\tn5=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\to1=",fstring),0:-1))
+    ini == 0 ? o1 = Float32(0) : o1 = parse(Float32, fstring[something(findnext(r"\to1=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\to2=",fstring),0:-1))
+    ini == 0 ? o2 = Float32(0) : o2 = parse(Float32, fstring[something(findnext(r"\to2=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\to3=",fstring),0:-1))
+    ini == 0 ? o3 = Float32(0) : o3 = parse(Float32, fstring[something(findnext(r"\to3=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\to4=",fstring),0:-1))
+    ini == 0 ? o4 = Float32(0) : o4 = parse(Float32, fstring[something(findnext(r"\to4=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\to5=",fstring),0:-1))
+    ini == 0 ? o5 = Float32(0) : o5 = parse(Float32, fstring[something(findnext(r"\to5=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\td1=",fstring),0:-1))
+    ini == 0 ? d1 = Float32(1) : d1 = parse(Float32, fstring[something(findnext(r"\td1=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\td2=",fstring),0:-1))
+    ini == 0 ? d2 = Float32(1) : d2 = parse(Float32, fstring[something(findnext(r"\td2=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\td3=",fstring),0:-1))
+    ini == 0 ? d3 = Float32(1) : d3 = parse(Float32, fstring[something(findnext(r"\td3=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\td4=",fstring),0:-1))
+    ini == 0 ? d4 = Float32(1) : d4 = parse(Float32, fstring[something(findnext(r"\td4=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\td5=",fstring),0:-1))
+    ini == 0 ? d5 = Float32(1) : d5 = parse(Float32, fstring[something(findnext(r"\td5=.*",fstring,ini))][5:end])
+    ini = first(something(findlast("\tlabel1=",fstring),0:-1))
+    ini == 0 ? label1 = "" : label1 = fstring[something(findnext(r"\tlabel1=.*",fstring,ini))][10:end-1]
+    ini = first(something(findlast("\tlabel2=",fstring),0:-1))
+    ini == 0 ? label2 = "" : label2 = fstring[something(findnext(r"\tlabel2=.*",fstring,ini))][10:end-1]
+    ini = first(something(findlast("\tlabel3=",fstring),0:-1))
+    ini == 0 ? label3 = "" : label3 = fstring[something(findnext(r"\tlabel3=.*",fstring,ini))][10:end-1]
+    ini = first(something(findlast("\tlabel4=",fstring),0:-1))
+    ini == 0 ? label4 = "" : label4 = fstring[something(findnext(r"\tlabel4=.*",fstring,ini))][10:end-1]
+    ini = first(something(findlast("\tlabel5=",fstring),0:-1))
+    ini == 0 ? label5 = "" : label5 = fstring[something(findnext(r"\tlabel5=.*",fstring,ini))][10:end-1]
+    ini = first(something(findlast("\tunit1=",fstring),0:-1))
+    ini == 0 ? unit1 = "" : unit1 = fstring[something(findnext(r"\tunit1=.*",fstring,ini))][9:end-1]
+    ini = first(something(findlast("\tunit2=",fstring),0:-1))
+    ini == 0 ? unit2 = "" : unit2 = fstring[something(findnext(r"\tunit2=.*",fstring,ini))][9:end-1]
+    ini = first(something(findlast("\tunit3=",fstring),0:-1))
+    ini == 0 ? unit3 = "" : unit3 = fstring[something(findnext(r"\tunit3=.*",fstring,ini))][9:end-1]
+    ini = first(something(findlast("\tunit4=",fstring),0:-1))
+    ini == 0 ? unit4 = "" : unit4 = fstring[something(findnext(r"\tunit4=.*",fstring,ini))][9:end-1]
+    ini = first(something(findlast("\tunit5=",fstring),0:-1))
+    ini == 0 ? unit5 = "" : unit5 = fstring[something(findnext(r"\tunit5=.*",fstring,ini))][9:end-1]
+    ini = first(something(findlast("\ttitle=",fstring),0:-1))
+    ini == 0 ? title = "" : title = fstring[something(findnext(r"\ttitle=.*",fstring,ini))][9:end-1]
     extent = Extent(convert(Int32,n1),convert(Int32,n2),convert(Int32,n3),convert(Int32,n4),convert(Int32,n5),
 		    convert(Float32,o1),convert(Float32,o2),convert(Float32,o3),convert(Float32,o4),convert(Float32,o5),
 		    convert(Float32,d1),convert(Float32,d2),convert(Float32,d3),convert(Float32,d4),convert(Float32,d5),

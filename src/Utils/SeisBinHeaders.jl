@@ -32,7 +32,6 @@ In file `out`, binned headers are created.
 *Credits: Aaron Stanton,2017*
 
 """
-
 function SeisBinHeaders(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,ogy=0,omx=0,omy=0,ohx=0,ohy=0,oh=0,oaz=0,dsx=1,dsy=1,dgx=1,dgy=1,dmx=1,dmy=1,dhx=1,dhy=1,dh=1,daz=1,min_isx=0,max_isx=0,min_isy=0,max_isy=0,min_igx=0,max_igx=0,min_igy=0,max_igy=0,min_imx=0,max_imx=0,min_imy=0,max_imy=0,min_ihx=0,max_ihx=0,min_ihy=0,max_ihy=0,min_ih=0,max_ih=0,min_iaz=0,max_iaz=0,ntrace=10000)
 
 
@@ -129,7 +128,7 @@ end
 nx_out = nx1*nx2*nx3*nx4
 stream_in = open(ParseHeaderName(in))
 
-@compat nx_in = round(Int,filesize(stream_in)/(4*length(fieldnames(Header))))
+nx_in = round(Int,filesize(stream_in)/(4*length(fieldnames(Header))))
 
 seek(stream_in, header_count["n1"])
 nt = read(stream_in,Int32)
@@ -156,7 +155,7 @@ filename_h = join([DATAPATH out "@headers@"])
 WriteTextHeader(out,extent,"native_float", 4,filename_d,filename_h)
 
 
-h = Array{Header}(1)
+h = Array{Header}(undef,1)
 h[1] = InitSeisHeader()
 stream_out = open(filename_h,"a+")
 
@@ -202,7 +201,7 @@ if (style=="sxsygxgy")
 			h[1].ihx = convert(Int32,round((hx_rot-ohx)/dhx))
 			h[1].ihy = convert(Int32,round((hy_rot-ohy)/dhy))
 			h[1].ih = convert(Int32,round((h[1].h-oh)/dh))
-			h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz?convert(Int32,round((h[1].az-oaz)/daz)):0
+			h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz ? convert(Int32,round((h[1].az-oaz)/daz)) : 0
 			h[1].selev = convert(typeof(h[1].selev),0)
 			h[1].gelev = convert(typeof(h[1].gelev),0)
 			h[1].trid = convert(typeof(h[1].trid),0)
@@ -283,7 +282,7 @@ if (style=="sxsygxgy")
 				h[1].az += 360.0
 			end
 			h[1].ih = convert(Int32,round((h[1].h-oh)/dh))
-			h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz?convert(Int32,round((h[1].az-oaz)/daz)):0
+			h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz ? convert(Int32,round((h[1].az-oaz)/daz)) : 0
 			h[1].selev = convert(typeof(h[1].selev),0)
 			h[1].gelev = convert(typeof(h[1].gelev),0)
 			h[1].trid = convert(typeof(h[1].trid),0)
@@ -449,7 +448,7 @@ elseif (style=="sxsyhxhy")
 	h[1].ihx = convert(Int32,round((hx_rot-ohx)/dhx))
 	h[1].ihy = convert(Int32,round((hy_rot-ohy)/dhy))
 	h[1].ih = convert(Int32,round((h[1].h-oh)/dh))
-	h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz?convert(Int32,round((h[1].az-oaz)/daz)):0
+	h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz ? convert(Int32,round((h[1].az-oaz)/daz)) : 0
 	h[1].selev = convert(typeof(h[1].selev),0)
 	h[1].gelev = convert(typeof(h[1].gelev),0)
 	h[1].trid = convert(typeof(h[1].trid),0)
@@ -530,7 +529,7 @@ elseif (style=="gxgyhxhy")
 	h[1].ihx = convert(Int32,round((hx_rot-ohx)/dhx))
 	h[1].ihy = convert(Int32,round((hy_rot-ohy)/dhy))
 	h[1].ih = convert(Int32,round((h[1].h-oh)/dh))
-	h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz?convert(Int32,round((h[1].az-oaz)/daz)):0
+	h[1].iaz = convert(Int32,round((h[1].az-oaz)/daz))<naz ? convert(Int32,round((h[1].az-oaz)/daz)) : 0
 	h[1].selev = convert(typeof(h[1].selev),0)
 	h[1].gelev = convert(typeof(h[1].gelev),0)
 	h[1].trid = convert(typeof(h[1].trid),0)

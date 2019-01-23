@@ -3,7 +3,7 @@ function SeisHeaderInfo(filename;ntrace=100000)
 	#   print Seis header information
 	#
 
-	@compat	key = fieldnames(Header)
+	key = fieldnames(Header)
 	nhead = length(key)
 	filename_headers = ParseHeaderName(filename)
 	stream = open(filename_headers)
@@ -26,10 +26,10 @@ function SeisHeaderInfo(filename;ntrace=100000)
 		ntrace = nx > ntrace ? ntrace : nx
 		position = 4*nhead*(itrace-1)
 		seek(stream,position)
-		h1 = read(stream,Header32Bits,nhead*ntrace)
+		h1 = read!(stream,Array{Header32Bits}(undef,nhead*ntrace))
 		h1 = reshape(h1,nhead,convert(Int,ntrace))
 		for ikey = 1 : length(key)
-			keytype = eval(parse("typeof(Seismic.InitSeisHeader().$(string(key[ikey])))"))
+			keytype = eval(Meta.parse("typeof(SeisMain.InitSeisHeader().$(string(key[ikey])))"))
 			h2 = reinterpret(keytype,vec(h1[ikey,:]))
 			a = minimum(h2)
 			b = maximum(h2)
@@ -49,11 +49,10 @@ function SeisHeaderInfo(filename;ntrace=100000)
 		mean_h[ikey] /= NX
 	end
 	close(stream)
-	println("       Key          Minimum          Maximum             Mean");    
+	println("       Key          Minimum          Maximum             Mean");
 	println("=============================================================")
 	for ikey=1:length(key)
 		@printf("%10s      %11.3f      %11.3f      %11.3f\n",string(key[ikey]),min_h[ikey],max_h[ikey],mean_h[ikey])
 	end
 
 end
-
