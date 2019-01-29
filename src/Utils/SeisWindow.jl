@@ -48,7 +48,7 @@ println("itmin= ",itmin," itmax= ",itmax)
                                [Dict(:itmin=>itmin,:itmax=>itmax)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
     filename_h_out = join([DATAPATH out "@headers@"])
-    cp(filename_h_tmp,filename_h_out,remove_destination=true);
+    cp(filename_h_tmp,filename_h_out,force=true);
     rm(filename_h_tmp,force=true);
 
 end

@@ -9,8 +9,9 @@
 
 [![Build Status](https://travis-ci.org/SeismicJulia/SeisMain.jl.svg?branch=master)](https://travis-ci.org/SeismicJulia/SeisMain.jl)
 
-This package contains tools to handle seismic data with the Seis format
-At the moment, it is updated and tested against Julia v1
+This package contains tools to handle seismic data with the Seis format.
+
+At the moment, it is updated and tested against Julia v1.
 
 ## Installation
 
@@ -35,10 +36,11 @@ If you use the SeismicJulia project, please cite the following paper
 ```
 
 ## Basic usage
-
+For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl)
+The following example produces the figure below
 ```Julia
 using SeisMain
-using SeisPlot # For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl)
+using SeisPlot 
 run(`mkdir -p data`)
 download("http://seismic.physics.ualberta.ca/data/616_79_PR.SGY", "data/616_79_PR.SGY")
 SegyToSeis("data/616_79_PR.SGY", "data/616_79_PR.seis")
@@ -48,7 +50,6 @@ d, head, extent = SeisRead("data/616_79_PR_2s.seis")
 SeisPlotTX(d, title="Seismic Plot Example", cmap="PuOr", wbox=9,ylabel="Time(s)",xlabel="Trace Number (index)",dy=extent.d1)
 
 ```
-will produce this figure:
 
 ![plot1](http://seismic.physics.ualberta.ca/figures/616_79_PR2.png)
 
