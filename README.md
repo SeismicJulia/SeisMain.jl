@@ -38,7 +38,7 @@ If you use the SeismicJulia project, please cite the following paper
 ## Basic usage
 For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl).
 
-The following example produces the figure below
+The following example produces the figure below.
 ```Julia
 using SeisMain
 using SeisPlot 
