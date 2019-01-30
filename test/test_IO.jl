@@ -8,8 +8,7 @@ download("http://certmapper.cr.usgs.gov/data/NPRA/seismic/1976/125_76/PROCESSED/
 
 SegyToSeis("125_76.SGY","125_76")
 d,h,ext = SeisRead("125_76")
-imx = Seismic.ExtractHeader(h,"imx")
+imx = SeisMain.ExtractHeader(h,"imx")
 println("size(d)=",size(d))
 println("imx=",imx)
 SeisWrite("125_76_copy",d,h,e)
-
