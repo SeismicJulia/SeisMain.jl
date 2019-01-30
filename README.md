@@ -7,7 +7,7 @@
 
 # SeisMain.jl
 
-[![Build Status](https://travis-ci.com/fercarozzi/SeisMain.jl.svg?branch=master)](https://travis-ci.com/fercarozzi/SeisMain.jl)
+[![Build Status](https://travis-ci.com/SeismicJulia/SeisMain.jl.svg?branch=master)](https://travis-ci.com/SeismicJulia/SeisMain.jl)
 
 This package contains tools to handle seismic data with the Seis format.
 
