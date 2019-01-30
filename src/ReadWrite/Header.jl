@@ -278,7 +278,7 @@ end
 
 function ExtractHeader(h::Array{Header,1},key::AbstractString)
 
-    keytype = eval(parse("typeof(Seismic.InitSeisHeader().$(key))"))
+    keytype = eval(Meta.parse("typeof(SeisMain.InitSeisHeader().$(key))"))
     out = keytype[]
     for ix = 1 : length(h)
 	push!(out,getfield(h[ix],Symbol(key)))

@@ -48,8 +48,8 @@ println("itmin= ",itmin," itmax= ",itmax)
                                [Dict(:itmin=>itmin,:itmax=>itmax)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
     filename_h_out = join([DATAPATH out "@headers@"])
-    cp(filename_h_tmp,filename_h_out,remove_destination=true);
-    rm(filename_h_tmp);
+    cp(filename_h_tmp,filename_h_out,force=true);
+    rm(filename_h_tmp,force=true);
 
 end
 
@@ -95,7 +95,7 @@ function SeekTraces!(d::AbstractArray{T,2}, stream_in::IOStream,
     for ix = 1 : ntrace
 	position = 4*nt*(h[ix].tracenum-1)
 	seek(stream_in,position)
-	d1 = read(stream_in,Float32,nt)
+	d1 = read!(stream_in,Array{Float32}(undef,nt))
 	for it = itmin : itmax
 	    d[it - itmin + 1,ix] = d1[it]
 	end
