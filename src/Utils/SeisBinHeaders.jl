@@ -34,7 +34,6 @@ In file `out`, binned headers are created.
 """
 function SeisBinHeaders(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,ogy=0,omx=0,omy=0,ohx=0,ohy=0,oh=0,oaz=0,dsx=1,dsy=1,dgx=1,dgy=1,dmx=1,dmy=1,dhx=1,dhy=1,dh=1,daz=1,min_isx=0,max_isx=0,min_isy=0,max_isy=0,min_igx=0,max_igx=0,min_igy=0,max_igy=0,min_imx=0,max_imx=0,min_imy=0,max_imy=0,min_ihx=0,max_ihx=0,min_ihy=0,max_ihy=0,min_ih=0,max_ih=0,min_iaz=0,max_iaz=0,ntrace=10000)
 
-println("test A")
 
 r2d = 180/pi;
 d2r = pi/180;
@@ -123,7 +122,6 @@ else
 	error("style not recognized.")
 end
 
-println("test B")
 
 
 nx_out = nx1*nx2*nx3*nx4
@@ -148,7 +146,6 @@ extent = Extent(convert(Int32,nt),convert(Int32,nx1),convert(Int32,nx2),convert(
 	   "s",unit5,unit4,unit3,unit2,
 	   "")
 
-println("test C")
 
 
 DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
@@ -164,7 +161,6 @@ h[1] = InitSeisHeader()
 stream_out = open(filename_h,"a+")
 
 j = 1
-println("test D")
 
 if (style=="sxsygxgy")
 
