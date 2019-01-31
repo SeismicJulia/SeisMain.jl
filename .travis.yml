@@ -5,5 +5,5 @@ julia:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'using Pkg'  
-  - julia -e 'Pkg.build()'
+  - julia -e 'Pkg.build(;verbose = true)'
   - julia -e 'Pkg.test("SeisMain"; coverage=true)'
