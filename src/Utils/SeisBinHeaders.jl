@@ -34,7 +34,7 @@ In file `out`, binned headers are created.
 """
 function SeisBinHeaders(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,ogy=0,omx=0,omy=0,ohx=0,ohy=0,oh=0,oaz=0,dsx=1,dsy=1,dgx=1,dgy=1,dmx=1,dmy=1,dhx=1,dhy=1,dh=1,daz=1,min_isx=0,max_isx=0,min_isy=0,max_isy=0,min_igx=0,max_igx=0,min_igy=0,max_igy=0,min_imx=0,max_imx=0,min_imy=0,max_imy=0,min_ihx=0,max_ihx=0,min_ihy=0,max_ihy=0,min_ih=0,max_ih=0,min_iaz=0,max_iaz=0,ntrace=10000)
 
-
+println("test A")
 
 r2d = 180/pi;
 d2r = pi/180;
@@ -123,6 +123,7 @@ else
 	error("style not recognized.")
 end
 
+println("test B")
 
 
 nx_out = nx1*nx2*nx3*nx4
@@ -147,6 +148,9 @@ extent = Extent(convert(Int32,nt),convert(Int32,nx1),convert(Int32,nx2),convert(
 	   "s",unit5,unit4,unit3,unit2,
 	   "")
 
+println("test C")
+
+
 DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
 filename_d = join([DATAPATH out "@data@"])
 filename_h = join([DATAPATH out "@headers@"])
@@ -160,6 +164,7 @@ h[1] = InitSeisHeader()
 stream_out = open(filename_h,"a+")
 
 j = 1
+println("test D")
 
 if (style=="sxsygxgy")
 
@@ -186,7 +191,7 @@ if (style=="sxsygxgy")
 			h[1].hx = h[1].gx - h[1].sx
 			h[1].hy = h[1].gy - h[1].sy
 			h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-			h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+			h[1].az = r2d*atan((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 			if (h[1].az < 0)
 	      			h[1].az += 360.0
 			end
@@ -277,7 +282,7 @@ if (style=="sxsygxgy")
 			h[1].igx = convert(Int32,round((gx_rot-ogx)/dgx))
 			h[1].igy = convert(Int32,round((gy_rot-ogy)/dgy))
 			h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-			h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+			h[1].az = r2d*atan((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 			if (h[1].az < 0)
 				h[1].az += 360.0
 			end
@@ -340,7 +345,7 @@ elseif (style=="mxmyhaz")
 		h[1].mx =  (mx_rot-omx)*cos(ang2) + (my_rot-omy)*sin(ang2) + omx;
 		h[1].my = -(mx_rot-omx)*sin(ang2) + (my_rot-omy)*cos(ang2) + omy;
 		h[1].h = convert(Float32,(ix3 - 1 + min_ih)*dh + oh);
-		h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+		h[1].az = r2d*atan((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 		if (h[1].az <= 90)
 			h[1].hx = h[1].h*cos(d2r*h[1].az);
 			h[1].hy = h[1].h*sin(d2r*h[1].az);
@@ -433,7 +438,7 @@ elseif (style=="sxsyhxhy")
 	h[1].gx = h[1].sx + h[1].hx;
 	h[1].gy = h[1].sy + h[1].hy;
 	h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-	h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+	h[1].az = r2d*atan((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 	if (h[1].az < 0)
 		h[1].az += 360.0
 	end
@@ -514,7 +519,7 @@ elseif (style=="gxgyhxhy")
 	h[1].sx = h[1].gx - h[1].hx;
 	h[1].sy = h[1].gy - h[1].hy;
 	h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-	h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+	h[1].az = r2d*atan((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 	if (h[1].az < 0)
 		h[1].az += 360.0
 	end
