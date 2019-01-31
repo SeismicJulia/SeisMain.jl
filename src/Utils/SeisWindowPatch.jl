@@ -66,7 +66,7 @@ function SeisWindowPatch(in::String,out::String;key=[],minval=[],maxval=[],it_nt
 
   filename_h_tmp = join([DATAPATH tmp "@headers@"])
   filename_h_out = join([DATAPATH out "@headers@"])
-  cp(filename_h_tmp,filename_h_out,remove_destination=true);
+  cp(filename_h_tmp,filename_h_out,force=true);
   rm(filename_h_tmp);
     #rm(tmp);
 end
@@ -98,7 +98,7 @@ function FetchTracesPatch(in::String, out::String; ntrace=500, itmin=round(Int,1
       itmax = round(Int,nt)
     end
 
-    nhead = length(fieldnames(Header)) 
+    nhead = length(fieldnames(Header))
 
     while itrace <= NX
       if (itrace > 1)
@@ -131,8 +131,8 @@ function SeekTracesPatch!(d::AbstractArray{T,2}, stream_in::IOStream,
     for ix = 1 : ntrace
 	     position = 4*nt*(h[ix].tracenum-1)
 	     seek(stream_in,position)
-	     d1 = read(stream_in,Float32,nt)
-	     for it = itmin : itmax
+         d1 = read!(stream_in,Array{Float32}(undef, nt))
+         for it = itmin : itmax
 	        d[it - itmin + 1,ix] = d1[it]
 	     end
     end

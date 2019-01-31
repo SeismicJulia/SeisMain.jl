@@ -167,10 +167,10 @@ function SeisUnPatch(patch_names::Array{String,1},out::String;style="sxsygxgy",m
     dt = extent.d1
     ot = extent.o1
     d = zeros(Float32,nt,1)
-    h = Array{Header}(1)
+    h = Array{Header}(undef,1)
     h[1] = InitSeisHeader()
 
-    extent = Seismic.Extent(nt, max_ix1-min_ix1+1, max_ix2-min_ix2+1,
+    extent = SeisMain.Extent(nt, max_ix1-min_ix1+1, max_ix2-min_ix2+1,
                             max_ix3-min_ix3+1, max_ix4-min_ix4+1,convert(Float32,ot), 0, 0, 0,
                             0, convert(Float32,dt), 1, 1, 1, 1, "", "", "", "", "", "", "", "",
                             "", "", "")
@@ -455,7 +455,7 @@ println("creating headers")
 	    h.o1 = ot
 	    position_d = 4*nt*(itrace - 1)
 	    seek(stream_d,position_d)
-	    d = read(stream_d,Float32,nt)
+	    d = read!(stream_d,Array{Float32}(undef,nt))
 	    d[min_it_patch:max_it_patch] += d_patch[:,j]
 
 

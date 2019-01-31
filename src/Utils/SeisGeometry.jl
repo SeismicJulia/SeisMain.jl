@@ -1,7 +1,7 @@
 """
     SeisGeometry(in;<keyword arguments>)
 
-Update headers with geometry information. Offsets and azimuths are calculated from source and receivers coordinates. 
+Update headers with geometry information. Offsets and azimuths are calculated from source and receivers coordinates.
 
 # Arguments
 * `in`: input filename
@@ -32,13 +32,13 @@ function SeisGeometry(in; ang=90, gamma=1, osx=0, osy=0, ogx=0, ogy=0, omx=0,
 
 
 
-    rad2deg = 180/pi
-    deg2rad = pi/180
+    r2d = 180/pi
+    d2r = pi/180
     gammainv = 1/gamma
     if (ang > 90)
-	ang2=-deg2rad*(ang-90)
+	ang2=-d2r*(ang-90)
     else
-	ang2=deg2rad*(90-ang)
+	ang2=d2r*(90-ang)
     end
 
     filename = ParseHeaderName(in)
@@ -53,7 +53,7 @@ function SeisGeometry(in; ang=90, gamma=1, osx=0, osy=0, ogx=0, ogy=0, omx=0,
 	h.hx = h.gx - h.sx
 	h.hy = h.gy - h.sy
 	h.h = sqrt((h.hx^2) + (h.hy^2))
-	h.az = rad2deg*atan2((h.gy-h.sy),(h.gx-h.sx))
+	h.az = r2d*atan((h.gy-h.sy),(h.gx-h.sx))
 	if (h.az < 0)
 	    h.az += 360.0
 	end
