@@ -170,7 +170,7 @@ function SeisUnPatch(patch_names::Array{String,1},out::String;style="sxsygxgy",m
     h = Array{Header}(1)
     h[1] = InitSeisHeader()
 
-    extent = Seismic.Extent(nt, max_ix1-min_ix1+1, max_ix2-min_ix2+1,
+    extent = SeisMain.Extent(nt, max_ix1-min_ix1+1, max_ix2-min_ix2+1,
                             max_ix3-min_ix3+1, max_ix4-min_ix4+1,convert(Float32,ot), 0, 0, 0,
                             0, convert(Float32,dt), 1, 1, 1, 1, "", "", "", "", "", "", "", "",
                             "", "", "")
