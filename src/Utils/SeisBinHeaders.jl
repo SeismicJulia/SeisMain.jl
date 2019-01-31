@@ -36,13 +36,13 @@ function SeisBinHeaders(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0
 
 
 
-rad2deg = 180/pi;
-deg2rad = pi/180;
+r2d = 180/pi;
+d2r = pi/180;
 gammainv = 1/gamma;
 if (ang > 90)
-	ang2=-deg2rad*(ang-90)
+	ang2=-d2r*(ang-90)
 else
-	ang2=deg2rad*(90-ang)
+	ang2=d2r*(90-ang)
 end
 
 naz=convert(Int32,360/daz)
@@ -186,7 +186,7 @@ if (style=="sxsygxgy")
 			h[1].hx = h[1].gx - h[1].sx
 			h[1].hy = h[1].gy - h[1].sy
 			h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-			h[1].az = rad2deg*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+			h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 			if (h[1].az < 0)
 	      			h[1].az += 360.0
 			end
@@ -277,7 +277,7 @@ if (style=="sxsygxgy")
 			h[1].igx = convert(Int32,round((gx_rot-ogx)/dgx))
 			h[1].igy = convert(Int32,round((gy_rot-ogy)/dgy))
 			h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-			h[1].az = rad2deg*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+			h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 			if (h[1].az < 0)
 				h[1].az += 360.0
 			end
@@ -340,19 +340,19 @@ elseif (style=="mxmyhaz")
 		h[1].mx =  (mx_rot-omx)*cos(ang2) + (my_rot-omy)*sin(ang2) + omx;
 		h[1].my = -(mx_rot-omx)*sin(ang2) + (my_rot-omy)*cos(ang2) + omy;
 		h[1].h = convert(Float32,(ix3 - 1 + min_ih)*dh + oh);
-		h[1].az = rad2deg*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+		h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 		if (h[1].az <= 90)
-			h[1].hx = h[1].h*cos(deg2rad*h[1].az);
-			h[1].hy = h[1].h*sin(deg2rad*h[1].az);
+			h[1].hx = h[1].h*cos(d2r*h[1].az);
+			h[1].hy = h[1].h*sin(d2r*h[1].az);
 		elseif (h[1].az > 90 && h[1].az <= 180)
-			h[1].hx =-h[1].h*cos(pi-(deg2rad*h[1].az));
-			h[1].hy = h[1].h*sin(pi-(deg2rad*h[1].az));
+			h[1].hx =-h[1].h*cos(pi-(d2r*h[1].az));
+			h[1].hy = h[1].h*sin(pi-(d2r*h[1].az));
 		elseif (h[1].az > 180 && h[1].az <= 270)
-			h[1].hx =-h[1].h*cos((deg2rad*h[1].az)-pi);
-			h[1].hy =-h[1].h*sin((deg2rad*h[1].az)-pi);
+			h[1].hx =-h[1].h*cos((d2r*h[1].az)-pi);
+			h[1].hy =-h[1].h*sin((d2r*h[1].az)-pi);
 		else
-			h[1].hx = h[1].h*cos(2*pi-(deg2rad*h[1].az));
-			h[1].hy =-h[1].h*sin(2*pi-(deg2rad*h[1].az));
+			h[1].hx = h[1].h*cos(2*pi-(d2r*h[1].az));
+			h[1].hy =-h[1].h*sin(2*pi-(d2r*h[1].az));
 		end
 		h[1].sx = h[1].mx - h[1].hx/(1 + gammainv);
 		h[1].sy = h[1].my - h[1].hy/(1 + gammainv);
@@ -433,7 +433,7 @@ elseif (style=="sxsyhxhy")
 	h[1].gx = h[1].sx + h[1].hx;
 	h[1].gy = h[1].sy + h[1].hy;
 	h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-	h[1].az = rad2deg*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+	h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 	if (h[1].az < 0)
 		h[1].az += 360.0
 	end
@@ -514,7 +514,7 @@ elseif (style=="gxgyhxhy")
 	h[1].sx = h[1].gx - h[1].hx;
 	h[1].sy = h[1].gy - h[1].hy;
 	h[1].h = sqrt((h[1].hx^2) + (h[1].hy^2))
-	h[1].az = rad2deg*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
+	h[1].az = r2d*atan2((h[1].gy-h[1].sy),(h[1].gx-h[1].sx))
 	if (h[1].az < 0)
 		h[1].az += 360.0
 	end
