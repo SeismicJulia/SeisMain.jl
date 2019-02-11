@@ -5,6 +5,7 @@
 *.seis~
 *.txt~
 *.yml~
+*.md~
 *#~
 
 # Text files #
