@@ -1,16 +1,9 @@
 """
-**SeisCopy**
+	SeisCopy(in,out)
 
-*Copy a seis file*
-
-**IN**
-* in: input filename
-* out: output filename
-
-**OUT**
+Copy a seis input file to a seis output file. In and out should be of type AbstractString
 
 *Credits: AS, 2015*
-
 """
 function SeisCopy(in::AbstractString,out::AbstractString)
 

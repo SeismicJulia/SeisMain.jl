@@ -1,8 +1,21 @@
+"""
+    SeisWriteHeaders(filename,h;<keyword arguments>)
+
+Write seismic headers in seis format
+
+# Arguments
+
+- `itrace=1` : First trace number to write
+- `update_tracenum=true` 
+
+*Credits: AS, 2015*
+
+"""
 function SeisWriteHeaders(filename,h;itrace=1,update_tracenum=true)
 
     DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
-    filename_d = join([DATAPATH filename "@data@"])	
-    filename_h = join([DATAPATH filename "@headers@"])	
+    filename_d = join([DATAPATH filename "@data@"])
+    filename_h = join([DATAPATH filename "@headers@"])
     if (itrace==1)
 	stream_hout = open(filename_h,"w")
     else
@@ -13,11 +26,11 @@ function SeisWriteHeaders(filename,h;itrace=1,update_tracenum=true)
     for j = itrace : itrace + nx - 1
 	if update_tracenum == true
 	    h[j - itrace + 1].tracenum = j
-	end	
+	end
 	h2 = HeaderToBits(h[j - itrace + 1])
 	append!(h1,h2)
     end
     write(stream_hout,h1)
     close(stream_hout)
-    
+
 end
