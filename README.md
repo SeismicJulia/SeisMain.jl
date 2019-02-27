@@ -20,7 +20,7 @@ Then, run the Julia application and type, at the prompt
 
 ```using Pkg```
 
-```Pkg.add("https://github.com/SeismicJulia/SeisMain.jl.git")```
+```Pkg.clone("https://github.com/SeismicJulia/SeisMain.jl.git")```
 
 ```using SeisMain```
 
