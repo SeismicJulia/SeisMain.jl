@@ -1,4 +1,4 @@
-struct fileHeader
+mutable struct fileHeader
 	jobid  :: Int32
 	linnum :: Int32
 	renum  :: Int32
@@ -150,7 +150,7 @@ end
 
 
 
-struct SegyHeader
+mutable struct SegyHeader
 	tracl::Int32
 	tracr::Int32
 	fldr::Int32
