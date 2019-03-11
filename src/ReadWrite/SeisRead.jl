@@ -4,11 +4,11 @@
 Read seismic data from a given filename in seis format.
 The format is comprised of three elements:
 
-* a text file with information about data extent, data and header file names
+* a text file (data extent) with geometry information
 * a binary file containing data (@data@)
 * a binary file containing headers (@headers@)
 
-# Arguments
+# Keyword arguments
 - `group="all"` : Options are all, some or gather
 - `key=["imx","imy"]`
 - `itrace=1` : Number of trace where the function starts reading

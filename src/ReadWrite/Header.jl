@@ -1,4 +1,4 @@
-mutable struct Header
+struct Header
     tracenum::Int32
     o1::Float32
     n1::Int32
@@ -287,7 +287,7 @@ function ExtractHeader(h::Array{Header,1},key::AbstractString)
 
 end
 
-mutable struct Extent
+struct Extent
     n1::Int32
     n2::Int32
     n3::Int32
