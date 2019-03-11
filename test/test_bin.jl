@@ -1,6 +1,8 @@
 using SeisMain
 using Test
 
+println("Testing test_bin.jl")
+
 download("http://seismic.physics.ualberta.ca/data/prestack_section.su","section.su");
 
 SegyToSeis("section.su","section",format="su",input_type="ieee");

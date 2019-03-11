@@ -1,17 +1,15 @@
 """
-**SeisWrite**
+    SeisWrite(filename,d,h,extent;<keyword arguments>)
 
-*Write seismic data in .seis format*
+Write seismic data in seis format
 
-**IN**
+# Arguments
 
-* filename
-* d: data
-* h: headers as 1d array with elements of type Header
-* extent: extent of the data (try _names(Extent)_ to see the information this contains)
-* itrace=1
-
-**OUT**
+- `filename` : Name of file to write/generate
+- `d`: seismic data
+- `h::Array{Header,1}`: headers as 1d array with elements of type Header
+- `extent::Extent` : extent of the data (try _names(Extent)_ to see the information this contains)
+- `itrace=1` : First trace number to write
 
 *Credits: AS, 2015*
 
@@ -20,7 +18,7 @@ function SeisWrite(filename,d,h::Array{Header,1},extent::Extent;itrace=1)
 
     DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
     filename_d = join([DATAPATH filename "@data@"])
-    filename_h = join([DATAPATH filename "@headers@"])	
+    filename_h = join([DATAPATH filename "@headers@"])
     if (itrace==1)
 	WriteTextHeader(filename,extent,"native_float",4,filename_d,filename_h)
 	stream_dout = open(filename_d,"w")
@@ -34,7 +32,7 @@ function SeisWrite(filename,d,h::Array{Header,1},extent::Extent;itrace=1)
     nx = size(d[:,:],2)
     h1 = Header32Bits[]
     for j = itrace : itrace + nx - 1
-	h[j - itrace + 1].tracenum = j 
+	h[j - itrace + 1].tracenum = j
 	h2 = HeaderToBits(h[j - itrace + 1])
 	append!(h1,h2)
     end
@@ -43,7 +41,7 @@ function SeisWrite(filename,d,h::Array{Header,1},extent::Extent;itrace=1)
 end
 
 function SeisWrite(filename,d,extent::Extent)
-    
+
     DATAPATH = get(ENV,"DATAPATH",join([pwd(),"/"]))
     filename_d = join([DATAPATH filename "@data@"])
     WriteTextHeader(filename,extent,"native_float",4,filename_d,"NULL")

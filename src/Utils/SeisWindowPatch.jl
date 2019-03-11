@@ -1,14 +1,15 @@
 """
-**SeisWindowPatch**
-*Window a seis file using header words.*
-**IN**
-* in
-* out
-* key=[]
-* minval=[]
-* maxval=[]
-* note that windowing along the time axis is achieved by using the key "t".
-**OUT**
+    SeisWindowPatch(in,out;<keyword arguments>)
+Window a seis file using header words.
+
+# Arguments
+- `in::String`: filename of input
+- `out::String`: filename of output
+- `key=[]`: note that windowing along the time axis is achieved by using the key "t".
+- `minval=[]`
+- `maxval=[]`
+- `it_nt=9e9`
+
 *Credits: AS, FC, 2017*
 """
 function SeisWindowPatch(in::String,out::String;key=[],minval=[],maxval=[],it_nt=9e9)

@@ -1,17 +1,12 @@
 """
-**SegyToSeis**
+	SegyToSeis(filename_in,filename_out;<keyword arguments>)
 
-*Convert SEGY or SU data to seis format.*
+Convert SEGY or SU data to seis format. The function needs input and output filenames.
 
-**IN**
-
-* filename_in
-* filename_out
-* format="segy" (or "su")
-* swap_bytes=true (flag to swap bytes)
-* input_type="ibm" (or "ieee")
-
-**OUT**
+# Arguments
+- `format="segy"` : Options are segy or su
+- `swap_bytes=true` : If the flag equals true, the function swaps bytes
+- `input_type="ibm"` : Options are ibm or ieee
 
 *Credits: AS, 2015*
 
@@ -67,10 +62,10 @@ function SegyToSeis(filename_in,filename_out;format="segy",swap_bytes=true,input
 		position = file_hsize + total*(j-1)*4 + segy_count["trace"]
 		seek(stream,position)
 		if (input_type == "ieee")
-			d = Array{Float32}(undef,nt);	
+			d = Array{Float32}(undef,nt);
 			read!(stream,d)
 		else
-			d = Array{IBMFloat32}(undef,nt);			
+			d = Array{IBMFloat32}(undef,nt);
 			read!(stream,d)
 		end
 		if (swap_bytes==true && input_type == "ieee")

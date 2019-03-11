@@ -20,9 +20,10 @@ Then, run the Julia application and type, at the prompt
 
 ```using Pkg```
 
-```Pkg.add(PackageSpec("https://github.com/SeismicJulia/SeisMain.jl.git"))```
+```Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))```
 
 ```using SeisMain```
+
 
 If you use the SeismicJulia project, please cite the following paper
 ```

@@ -1,20 +1,28 @@
 """
-**SeisRead**
-*Read seismic data in seis format. The format is comprised of three elements:*
-* a text file with information about data extent, data and header file names
-* a binary file containing data
-* a binary file containing headers
-**
-**IN**
-* filename
-* group="all" ("some" or "gather")
-* key=["imx","imy"]
-* itrace=1
-* ntrace=10000
-**OUT**
-* d: data as 2d array
-* h: headers as 1d array
-* extent: extent of the data (try _fieldnames(Extent)_ to see the information this contains)
+    SeisRead(filename;<keyword arguments>)
+
+Read seismic data from a given filename in seis format.
+The format is comprised of three elements:
+
+* a text file (data extent) with geometry information
+* a binary file containing data (@data@)
+* a binary file containing headers (@headers@)
+
+# Keyword arguments
+- `group="all"` : Options are all, some or gather
+- `key=["imx","imy"]`
+- `itrace=1` : Number of trace where the function starts reading
+- `ntrace=10000` : Total number of traces to read
+
+# Out
+- d: data as 2d array
+- h: headers as 1d array
+- extent: extent of the data (try _fieldnames(Extent)_ to see the information this contains)
+
+# Example
+```julia
+d,h,ext = SeisRead(filename)
+```
 *Credits: AS, 2015*
 """
 function SeisRead(filename;group="all",key=["imx","imy"],itrace=1,ntrace=10000)
