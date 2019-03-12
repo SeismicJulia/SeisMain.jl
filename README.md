@@ -25,6 +25,12 @@ segy format: InitSegyHeader, GrabSegyHeader,PutSegyHeader, MapHeaders
 2. Utils
 * SeisBinGeometry, SeisBinHeaders, SeisBinData, SeisPatch, SeisUnPatch, SeisProcess, SeisSort, SeisWindow.
 
+Use julia help for detail. For example,
+```julia>?
+help?> SegyToSeis
+```
+Functions that are not exported can be accessed via SeisMain.ExtractHeader 
+
 ## Installation
 
 To use this package you must first install the [Julia](http://julialang.org/downloads/) programming language.
