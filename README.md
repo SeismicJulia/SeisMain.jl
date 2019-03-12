@@ -13,6 +13,18 @@ This package contains tools to handle seismic data with the Seis format.
 
 At the moment, it is updated and tested against Julia v1.
 
+## Contents
+
+1. ReadWrite
+* Exported: SegyToSeis, SeisRead, SeisReadHeaders, SeisWrite, SeisWriteHeaders, SeisCopy, , SeisHeaderInfo, SeisToSegy, SeisRemove
+* Not exported:
+seis format: InitHeader, GrabHeader, PutHeader, GetNumTraces, ExtractHeader
+su format: InitFileHeader, GrabFileHeader, PutFileHeader,
+segy format: InitSegyHeader, GrabSegyHeader,PutSegyHeader, MapHeaders
+
+2. Utils
+* SeisBinGeometry, SeisBinHeaders, SeisBinData, SeisPatch, SeisUnPatch, SeisProcess, SeisSort, SeisWindow.
+
 ## Installation
 
 To use this package you must first install the [Julia](http://julialang.org/downloads/) programming language.
@@ -23,18 +35,6 @@ Then, run the Julia application and type, at the prompt
 ```Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))```
 
 ```using SeisMain```
-
-
-If you use the SeismicJulia project, please cite the following paper
-```
-@article{stanton2016efficient,
-  title={Efficient geophysical research in Julia},
-  author={Stanton, Aaron and Sacchi, Mauricio D},
-  journal={CSEG GeoConvention 2016},
-  pages={1--3},
-  year={2016}
-}
-```
 
 ## Basic usage
 For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl).
@@ -54,6 +54,18 @@ SeisPlotTX(d, title="Seismic Plot Example", cmap="PuOr", wbox=9,ylabel="Time(s)"
 ```
 
 ![plot1](http://seismic.physics.ualberta.ca/figures/616_79_PR2.png)
+
+## Credits
+If you use the SeismicJulia project, please cite the following paper
+```
+@article{stanton2016efficient,
+  title={Efficient geophysical research in Julia},
+  author={Stanton, Aaron and Sacchi, Mauricio D},
+  journal={CSEG GeoConvention 2016},
+  pages={1--3},
+  year={2016}
+}
+```
 
 ## For developers: contributing to the project
 
