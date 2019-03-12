@@ -16,25 +16,43 @@ At the moment, it is updated and tested against Julia v1.
 ## Installation
 
 To use this package you must first install the [Julia](http://julialang.org/downloads/) programming language.
-Then, run the Julia application and type, at the prompt
+Then, run the Julia application and add the package
 
-```using Pkg```
-
-```Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))```
-
-```using SeisMain```
-
-
-If you use the SeismicJulia project, please cite the following paper
 ```
-@article{stanton2016efficient,
-  title={Efficient geophysical research in Julia},
-  author={Stanton, Aaron and Sacchi, Mauricio D},
-  journal={CSEG GeoConvention 2016},
-  pages={1--3},
-  year={2016}
-}
+julia>using Pkg
+julia>Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))
 ```
+or
+```
+julia>]
+pkg> add "https://github.com/SeismicJulia/SeisMain.jl.git"
+```
+
+Finally, in the julia prompt type
+```
+julia>using SeisMain
+```
+
+## Contents
+
+1. ReadWrite
+* Exported: SegyToSeis, SeisRead, SeisReadHeaders, SeisWrite, SeisWriteHeaders, SeisCopy, , SeisHeaderInfo, SeisToSegy, SeisRemove
+* Not exported:
+seis format: InitHeader, GrabHeader, PutHeader, GetNumTraces, ExtractHeader; 
+su format: InitFileHeader, GrabFileHeader, PutFileHeader;
+segy format: InitSegyHeader, GrabSegyHeader,PutSegyHeader, MapHeaders
+
+2. Utils
+* SeisBinGeometry, SeisBinHeaders, SeisBinData, SeisPatch, SeisUnPatch, SeisProcess, SeisSort, SeisWindow.
+
+Functions that are not exported can be accessed via SeisMain.ExtractHeader
+
+Use julia help for detail. For example,
+```
+julia>?
+help?> SegyToSeis
+```
+ 
 
 ## Basic usage
 For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl).
@@ -55,6 +73,7 @@ SeisPlotTX(d, title="Seismic Plot Example", cmap="PuOr", wbox=9,ylabel="Time(s)"
 
 ![plot1](http://seismic.physics.ualberta.ca/figures/616_79_PR2.png)
 
+
 ## For developers: contributing to the project
 
 * New at GitHub? These [basic commands](http://seismic.physics.ualberta.ca/docs/git_basic_commands.pdf)
@@ -64,3 +83,15 @@ steps you need to follow in order to fork the main repository, change the source
 repository, commit the changes, and make pull requests using GitHub.
 * For contributions to the package, please follow the general guidelines given here:
 [Modifications.md](https://github.com/SeismicJulia/Seismic.jl/blob/master/Modifications.md).
+
+## Credits
+If you use the SeismicJulia project, please cite the following paper
+```
+@article{stanton2016efficient,
+  title={Efficient geophysical research in Julia},
+  author={Stanton, Aaron and Sacchi, Mauricio D},
+  journal={CSEG GeoConvention 2016},
+  pages={1--3},
+  year={2016}
+}
+```
