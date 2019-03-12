@@ -13,13 +13,24 @@ This package contains tools to handle seismic data with the Seis format.
 
 At the moment, it is updated and tested against Julia v1.
 
+## Installation
+
+To use this package you must first install the [Julia](http://julialang.org/downloads/) programming language.
+Then, run the Julia application and type, at the prompt
+
+```using Pkg```
+
+```Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))```
+
+```using SeisMain```
+
 ## Contents
 
 1. ReadWrite
 * Exported: SegyToSeis, SeisRead, SeisReadHeaders, SeisWrite, SeisWriteHeaders, SeisCopy, , SeisHeaderInfo, SeisToSegy, SeisRemove
 * Not exported:
-seis format: InitHeader, GrabHeader, PutHeader, GetNumTraces, ExtractHeader
-su format: InitFileHeader, GrabFileHeader, PutFileHeader,
+seis format: InitHeader, GrabHeader, PutHeader, GetNumTraces, ExtractHeader; 
+su format: InitFileHeader, GrabFileHeader, PutFileHeader;
 segy format: InitSegyHeader, GrabSegyHeader,PutSegyHeader, MapHeaders
 
 2. Utils
@@ -33,17 +44,6 @@ julia>?
 help?> SegyToSeis
 ```
  
-
-## Installation
-
-To use this package you must first install the [Julia](http://julialang.org/downloads/) programming language.
-Then, run the Julia application and type, at the prompt
-
-```using Pkg```
-
-```Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))```
-
-```using SeisMain```
 
 ## Basic usage
 For SeisPlot, please refer [here](https://github.com/SeismicJulia/SeisPlot.jl).
@@ -64,6 +64,17 @@ SeisPlotTX(d, title="Seismic Plot Example", cmap="PuOr", wbox=9,ylabel="Time(s)"
 
 ![plot1](http://seismic.physics.ualberta.ca/figures/616_79_PR2.png)
 
+
+## For developers: contributing to the project
+
+* New at GitHub? These [basic commands](http://seismic.physics.ualberta.ca/docs/git_basic_commands.pdf)
+and this [dictionary](http://seismic.physics.ualberta.ca/docs/git_dictionary.pdf) might help.
+* This [tutorial](http://seismic.physics.ualberta.ca/docs/develop_SeismicJulia.pdf) provides the basics
+steps you need to follow in order to fork the main repository, change the source code in your forked
+repository, commit the changes, and make pull requests using GitHub.
+* For contributions to the package, please follow the general guidelines given here:
+[Modifications.md](https://github.com/SeismicJulia/Seismic.jl/blob/master/Modifications.md).
+
 ## Credits
 If you use the SeismicJulia project, please cite the following paper
 ```
@@ -75,13 +86,3 @@ If you use the SeismicJulia project, please cite the following paper
   year={2016}
 }
 ```
-
-## For developers: contributing to the project
-
-* New at GitHub? These [basic commands](http://seismic.physics.ualberta.ca/docs/git_basic_commands.pdf)
-and this [dictionary](http://seismic.physics.ualberta.ca/docs/git_dictionary.pdf) might help.
-* This [tutorial](http://seismic.physics.ualberta.ca/docs/develop_SeismicJulia.pdf) provides the basics
-steps you need to follow in order to fork the main repository, change the source code in your forked
-repository, commit the changes, and make pull requests using GitHub.
-* For contributions to the package, please follow the general guidelines given here:
-[Modifications.md](https://github.com/SeismicJulia/Seismic.jl/blob/master/Modifications.md).
