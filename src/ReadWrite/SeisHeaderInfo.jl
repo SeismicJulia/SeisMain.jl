@@ -10,7 +10,6 @@ Print Seis header information to screen. The input is the name of the data file
 *Credits: AS, 2015*
 
 """
-
 function SeisHeaderInfo(filename;ntrace=100000)
 
 	key = fieldnames(Header)
