@@ -26,7 +26,7 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     h = Header[]
     # find min and max for each key
     h1 = GrabHeader(stream_h,1)
-    minval = Array(Float32,length(key))
+    minval = Array{Float32}(undef,length(key))
 
     for ikey=1:length(key)
 	minval[ikey] = getfield(h1,Symbol(key[ikey]))
