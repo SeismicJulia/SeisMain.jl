@@ -67,7 +67,7 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     FetchHeaders(filename_h,out,p,nx)
     SeisMain.FetchTraces(in,out)
     tmp = join(["tmp_SeisSort_",string(Int(floor(rand()*100000)))])
-    cp(out,tmp,remove_destination=true);
+    cp(out,tmp,force=true);
     SeisProcessHeaders(out, tmp, [UpdateHeader],
                                [Dict(:itmin=>1,:itmax=>nt)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
