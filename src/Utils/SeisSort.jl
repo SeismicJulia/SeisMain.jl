@@ -65,7 +65,7 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     extent.n5 = 1
     WriteTextHeader(out,extent,"native_float",4,filename_d_out,filename_h_out)
     FetchHeaders(filename_h,out,p,nx)
-    Seismic.FetchTraces(in,out)
+    SeisMain.FetchTraces(in,out)
     tmp = join(["tmp_SeisSort_",string(Int(floor(rand()*100000)))])
     cp(out,tmp,remove_destination=true);
     SeisProcessHeaders(out, tmp, [UpdateHeader],
