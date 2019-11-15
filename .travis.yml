@@ -2,6 +2,14 @@ language: julia
 julia:
   - 1.1
 
-script:
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'using Pkg; Pkg.build(); Pkg.test("SeisMain"; coverage=true)'
+jobs:
+  include:
+      script:
+        - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+        - julia -e 'using Pkg; Pkg.build(); Pkg.test("SeisMain"; coverage=true)'
+    - stage: "Documentation"
+      script:
+        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
+                                               Pkg.instantiate()'
+        - julia --project=docs/ docs/make.jl
+      after_success: skip
