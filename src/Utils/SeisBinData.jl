@@ -154,7 +154,7 @@ function SeisBinData(in,out;style="sxsygxgy",ang=90,gamma=1,osx=0,osy=0,ogx=0,og
 		j = 1
 		while j <= nx_in
 			d,h,e = SeisRead(in,group="some",itrace=j,ntrace=ntrace)
-			num_traces_in = ntrace
+			num_traces_in = size(d[:,:],2)
 			for k = 1 : num_traces_in
 				itrace = (h[k].igy - min_igy)*nx1*nx2*nx3 + (h[k].igx - min_igx)*nx2*nx1 + (h[k].isy - min_isy)*nx1 + h[k].igx - min_igx + 1
 				if (itrace > 0 && itrace <= nx_out)

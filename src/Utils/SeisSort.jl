@@ -26,7 +26,7 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     h = Header[]
     # find min and max for each key
     h1 = GrabHeader(stream_h,1)
-    minval = Array(Float32,length(key))
+    minval = Array{Float32}(undef,length(key))
 
     for ikey=1:length(key)
 	minval[ikey] = getfield(h1,Symbol(key[ikey]))
@@ -65,14 +65,14 @@ function SeisSort(in, out;key=["imx","imy"],rev=false,ntrace=100000)
     extent.n5 = 1
     WriteTextHeader(out,extent,"native_float",4,filename_d_out,filename_h_out)
     FetchHeaders(filename_h,out,p,nx)
-    Seismic.FetchTraces(in,out)
+    SeisMain.FetchTraces(in,out)
     tmp = join(["tmp_SeisSort_",string(Int(floor(rand()*100000)))])
-    cp(out,tmp,remove_destination=true);
+    cp(out,tmp,force=true);
     SeisProcessHeaders(out, tmp, [UpdateHeader],
                                [Dict(:itmin=>1,:itmax=>nt)])
     filename_h_tmp = join([DATAPATH tmp "@headers@"])
     filename_h_out = join([DATAPATH out "@headers@"])
-    cp(filename_h_tmp,filename_h_out,remove_destination=true);
+    cp(filename_h_tmp,filename_h_out,force=true);
     rm(filename_h_tmp);
     rm(tmp);
 end
