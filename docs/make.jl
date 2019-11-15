@@ -11,11 +11,7 @@ makedocs(
 	       		"Guide" => "man/guide.md"],
 		"Library" => Any[
 			  "Public" => "lib/public.md",
-			  "Internals" => map(
-                	     s -> "lib/internals/$(s)",
-                sort(readdir(joinpath(@__DIR__, "src/lib/internals")))
-		),
-		],
+				],
 		], 
 )
 
