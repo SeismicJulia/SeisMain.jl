@@ -3,8 +3,8 @@ using Documenter, SeisMain
 
 makedocs(
 	modules = [SeisMain],
-	doctest = false,
-	sitename = "SeisMain.jl",
+	sitename = "SeisMain",
+	format = Documenter.HTML(),
 	pages = [
 	       "Home" => "index.md",
 	       "Manual" => Any[
@@ -16,5 +16,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/SeismicJulia/SeisMain.jl.git",
+    repo = "github.com/SeisMain/SeisMain.jl.git",
 )
