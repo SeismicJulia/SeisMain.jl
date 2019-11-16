@@ -3,8 +3,8 @@ using Documenter, SeisMain
 
 makedocs(
 	modules = [SeisMain],
-	doctest = false,
 	sitename = "SeisMain.jl",
+	format = Documenter.HTML(),
 	pages = [
 	       "Home" => "index.md",
 	       "Manual" => Any[
