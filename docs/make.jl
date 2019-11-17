@@ -20,6 +20,5 @@ makedocs(
 
 deploydocs(
     repo = "github.com/fercarozzi/SeisMain.jl.git",
-    osname = "linux",
     target = "build"
 )
