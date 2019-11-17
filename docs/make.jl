@@ -16,5 +16,8 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/SeismicJulia/SeisMain.jl.git",
+    repo = "github.com/fercarozzi/SeisMain.jl.git",
+    julia = "1.1",
+    osname = "linux",
+    target = "build"
 )
