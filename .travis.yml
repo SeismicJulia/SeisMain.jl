@@ -1,11 +1,12 @@
 language: julia
+os:
+  - linux
 julia:
   - 1.1
 
 script:
         - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
         - julia -e 'using Pkg; Pkg.build(); Pkg.test("SeisMain"; coverage=true)'
-        - julia -e 'using Pkg; Pkg.add("Documenter")
 
 jobs:
   include:
@@ -13,7 +14,6 @@ jobs:
       julia: 1.1
       os: linux
       script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
-                                               Pkg.instantiate()'
+        - julia --project=docs/ -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
         - julia --project=docs/ docs/make.jl
       after_success: skip
