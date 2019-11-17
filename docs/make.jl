@@ -1,10 +1,18 @@
+if Base.HOME_PROJECT[] !== nothing
+ Base.HOME_PROJECT[] = abspath(Base.HOME_PROJECT[])
+end
+
+
 using Pkg; Pkg.add("Documenter")
 using Documenter, SeisMain
 
 makedocs(
 	modules = [SeisMain],
+	doctest = false,
+ 	clean = true,
+	checkdocs = :all,
 	sitename = "SeisMain.jl",
-	format = Documenter.HTML(),
+	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing)== "true"),
 	pages = [
 	       "Home" => "index.md",
 	       "Manual" => Any[
