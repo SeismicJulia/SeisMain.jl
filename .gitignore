@@ -17,6 +17,10 @@
 ##################
 docs/build
 
+# Key files #
+###################
+privatekey*
+
 # Compiled source #
 ###################
 *.com
