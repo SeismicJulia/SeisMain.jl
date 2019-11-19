@@ -19,6 +19,6 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/fercarozzi/SeisMain.jl.git",
+    repo = "github.com/SeismicJulia/SeisMain.jl.git",
     target = "build"
 )
