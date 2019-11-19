@@ -3,8 +3,11 @@ using Documenter, SeisMain
 
 makedocs(
 	modules = [SeisMain],
+	doctest = false,
+ 	clean = true,
+	checkdocs = :all,
 	sitename = "SeisMain.jl",
-	format = Documenter.HTML(),
+	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing)== "true"),
 	pages = [
 	       "Home" => "index.md",
 	       "Manual" => Any[
@@ -17,4 +20,5 @@ makedocs(
 
 deploydocs(
     repo = "github.com/SeismicJulia/SeisMain.jl.git",
+    target = "build"
 )
