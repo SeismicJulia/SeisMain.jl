@@ -7,6 +7,10 @@ branches:
    - master
    - gh-pages
 
+env:
+  global:
+   - DOCUMENTER_DEBUG=true
+
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'using Pkg; Pkg.build(); Pkg.test("SeisMain"; coverage=true)'
@@ -14,7 +18,7 @@ script:
 jobs:
   include:
     - stage: "Documentation"
-      julia: 1.0
+      julia: 1.1
       os: linux
       script:
         - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
