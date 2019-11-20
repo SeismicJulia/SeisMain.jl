@@ -22,6 +22,5 @@ deploydocs(
     repo = "github.com/SeismicJulia/SeisMain.jl.git",
     target = "build",
     deps = nothing,
-    make = nothing,
-    push_preview = true
+    make = nothing
 )
