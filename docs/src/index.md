@@ -1,6 +1,6 @@
 # SeisMain.jl
 
-* A package to read, write and process seismic data in Julia *
+* A package to read, write and process seismic data in Julia 
 
 ## Package Features
 
