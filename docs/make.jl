@@ -9,7 +9,9 @@ makedocs(
  	clean = true,
 	checkdocs = :all,
 	sitename = "SeisMain.jl",
-	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing)== "true"),
+	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing)== "true",
+		assets = ["assets/logo.png"],
+		),
 	pages = [
 	       "Home" => "index.md",
 	       "Manual" => Any[
