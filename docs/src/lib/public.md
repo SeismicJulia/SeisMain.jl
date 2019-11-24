@@ -17,7 +17,6 @@ SeisHeaderInfo
 SeisToSegy
 SeisRemove
 SeisWindow
-SeisBinData
 SeisPatch
 SeisUnPatch
 SeisGeometry
