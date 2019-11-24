@@ -8,7 +8,7 @@ makedocs(
 	doctest = false,
  	clean = true,
 	checkdocs = :all,
-	assets = ["assets/logo.png"]
+	assets = ["assets/logo.png"],
 	sitename = "SeisMain.jl",
 	format = Documenter.HTML(prettyurls = get(ENV, "CI", nothing)== "true"),
 	pages = [
