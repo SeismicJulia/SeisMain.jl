@@ -7,7 +7,10 @@ SeisRead,
 SeisReadHeaders,
 SeisRemove,
 SeisWrite,
-SeisWriteHeaders
+SeisWriteHeaders,
+ExtractSegyHeader,
+ReadSegyHeader,
+SegyHeaderInfo
 include("Header.jl")
 include("SegyStruct.jl")
 include("SegyToSeis.jl")
@@ -19,3 +22,6 @@ include("SeisReadHeaders.jl")
 include("SeisRemove.jl")
 include("SeisWrite.jl")
 include("SeisWriteHeaders.jl")
+include("ExtractSegyHeader.jl")
+include("ReadSegyHeader.jl")
+include("SegyHeaderInfo.jl")
