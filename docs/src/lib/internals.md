@@ -7,12 +7,25 @@ Documentation for internal `SeisMain.jl` interface
 
 
 ```@docs
-InitSeisHeader
-GrabHeader
-PutHeader
-BitsToHeader
-HeaderToBits
-GetNumTraces
-ParseHeaderName
-InitFileHeader
+SeisMain.InitSeisHeader
+SeisMain.GrabHeader
+SeisMain.PutHeader
+SeisMain.BitsToHeader
+SeisMain.HeaderToBits
+SeisMain.GetNumTraces
+SeisMain.ParseHeaderName
+SeisMain.ParseDataName
+SeisMain.ParseDataFormat
+SeisMain.ParseDataESize
+SeisMain.ExtractHeader
+SeisMain.ReadTextHeader
+SeisMain.WriteTextHeader
+SeisMain.InitFileHeader
+SeisMain.GrabFileHeader
+SeisMain.PutFileHeader
+SeisMain.InitSegyHeader
+SeisMain.GrabSegyHeader
+SeisMain.PutSegyHeader
+SeisMain.MapHeaders
+SeisMain.convert
 ```
