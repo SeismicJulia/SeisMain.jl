@@ -11,7 +11,7 @@
 
 This package contains tools to handle seismic data with the Seis format.
 
-At the moment, it is updated and tested against Julia v1.
+At the moment, it is updated and tested in Julia v1.1.
 
 ## Installation
 

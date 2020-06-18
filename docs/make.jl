@@ -16,6 +16,7 @@ makedocs(
 	       		"Guide" => "man/guide.md"],
 		"Library" => Any[
 			  "Public" => "lib/public.md",
+			  "Internals" => "lib/internals.md"
 				],
 		], 
 )
