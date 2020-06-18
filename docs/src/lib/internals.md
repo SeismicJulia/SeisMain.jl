@@ -6,7 +6,13 @@ Documentation for internal `SeisMain.jl` interface
 ## Internals
 
 
-```@autodocs
-Modules = [SeisMain]
-Public = false
+```@docs
+InitSeisHeader
+GrabHeader
+PutHeader
+BitsToHeader
+HeaderToBits
+GetNumTraces
+ParseHeaderName
+InitFileHeader
 ```

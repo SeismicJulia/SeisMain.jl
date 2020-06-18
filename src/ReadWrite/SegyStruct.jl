@@ -65,7 +65,7 @@ fileHeader_count["netfh"  ] = 3504
 
 
 """
-	InitFileHeader()
+    InitFileHeader
 
 Initializes a variable of composite type fileHeader corresponding to the file header in SEGY format. All the fields are initialized to 0. Type ?SeisMain.fileHeader for a detail of the fields included. 
 """
@@ -78,7 +78,7 @@ end
 
 
 """
-	GrabFileHeader(stream)
+    GrabFileHeader(stream)
 
 Extracts the file header from a standard SEGY rev0 data file, starting from byte 3200.
 
@@ -124,7 +124,7 @@ end
 
 
 """
-	PutFileHeader(stream,fh)
+    PutFileHeader(stream,fh)
 
 Writes the file header on a standard SEGY rev0 format file. 
 
@@ -341,7 +341,7 @@ segy_count["trace"]  = 240
 
 
 """
-	InitSegyHeader()
+    InitSegyHeader()
 
 Initializes a variable of composite type SegyHeader corresponding to the trace header in SEGY format. 
 All the fields are initialized to 0. 
@@ -361,7 +361,7 @@ end
 
 
 """
-	GrabSegyHeader(stream,swap_bytes,nt,file_header_size,j)
+    GrabSegyHeader(stream,swap_bytes,nt,file_header_size,j)
 
 Extracts the header from trace j of a file in segy format. 
 The output is of composite type SegyHeader.
@@ -546,7 +546,7 @@ end
 
 
 """
-	PutSegyHeader(stream,h,nt,file_header_size,j)
+    PutSegyHeader(stream,h,nt,file_header_size,j)
 
 Writes the header of trace j to a file in segy format. 
 
@@ -644,7 +644,7 @@ end
 
 
 """
-	MapHeaders(h_in,j,map_type)
+    MapHeaders(h_in,j,map_type)
 
 Maps header attributes from seis byte location to segy byte location in the file and backwards. 
 The output is of type Header or SegyHeader accordingly.
@@ -712,7 +712,7 @@ import Base.convert
 
 
 """
-	convert(::Type{Float32}, ibm::IBMFloat32)
+    convert(::Type{Float32}, ibm::IBMFloat32)
 
 Extension of function convert in SeismicJulia to cover IBMFloat32 Floating-point format
 """
