@@ -22,4 +22,9 @@ SeisUnPatch
 SeisGeometry
 SeisBinHeaders
 SeisBinData
+SeisProcess
+SeisSort
+ReadSegyHeader
+ExtractSegyHeader
+SegyHeaderInfo
 ```

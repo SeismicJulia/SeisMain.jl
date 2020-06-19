@@ -65,6 +65,14 @@ header_count["sstat"] = 112
 header_count["gstat"] = 116
 header_count["trid"]  = 120
 
+
+"""
+    InitSeisHeader
+
+Initialize a variable of composite type Header corresponding to the data header in seis format. 
+All the fields are initialized to 0.0. 
+Type ?SeisMain.Header for a detail of the fields included. 
+"""
 function InitSeisHeader()
     h = Header(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
 	       0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
@@ -73,6 +81,18 @@ function InitSeisHeader()
     return h
 end
 
+
+
+
+"""
+    GrabHeader(stream,j)
+
+Extract the header from trace j of a file in seis format.
+
+# Arguments
+- `stream::IOStream`: data file in seis format
+- `j::Integer`: Trace number
+"""
 function GrabHeader(stream,j)
     position = 4*length(fieldnames(Header))*(j-1)
     seek(stream,position)
@@ -111,6 +131,16 @@ function GrabHeader(stream,j)
     return h
 end
 
+
+"""
+    PutHeader(stream,j)
+
+Write the header of trace j to a file in seis format. 
+
+# Arguments
+- `stream::IOStream`: data file in seis format
+- `j::Integer`: Trace number
+"""
 function PutHeader(stream,h,j)
     position = 4*length(fieldnames(Header))*(j-1)
     seek(stream,position)
@@ -149,6 +179,15 @@ end
 
 primitive type Header32Bits 32 end
 
+
+
+
+"""
+    BitsToHeader(h_in)
+
+Reinterpret an input header to its correct type. 
+The function outputs a variable of composite type Header.
+"""
 function BitsToHeader(h_in)
     h = InitSeisHeader()
     h.tracenum = reinterpret(typeof(h.tracenum),h_in[1])
@@ -185,6 +224,13 @@ function BitsToHeader(h_in)
     return h
 end
 
+
+"""
+    HeaderToBits(h_in)
+
+Reinterpret a composite type variable of type Header to 32 bits
+The function outputs an Vector with 31 elements of type Header32Bit.
+"""
 function HeaderToBits(h);
     h_out = [reinterpret(Header32Bits,h.tracenum);
 	     reinterpret(Header32Bits,h.o1);
@@ -220,6 +266,12 @@ function HeaderToBits(h);
     return h_out
 end
 
+
+"""
+    GetNumTraces(file)
+
+Calculate the total number of traces in a data file with seis format
+"""
 function GetNumTraces(in)
 
     filename_h = ParseHeaderName(in)
@@ -231,6 +283,12 @@ function GetNumTraces(in)
 
 end
 
+
+"""
+    ParseHeaderName(file::AbstractString)
+
+Parse the name of the header file from an extent file to a String variable.
+"""
 function ParseHeaderName(filename::AbstractString)
 
     f = open(filename,"r")
@@ -242,6 +300,16 @@ function ParseHeaderName(filename::AbstractString)
 
 end
 
+
+
+
+
+
+"""
+    ParseDataName(file::AbstractString)
+
+Parse the name of the data file from an extent file to a String variable.
+"""
 function ParseDataName(filename::AbstractString)
 
     f = open(filename,"r")
@@ -254,6 +322,16 @@ function ParseDataName(filename::AbstractString)
 
 end
 
+
+
+
+
+
+"""
+    ParseDataFormat(file::AbstractString)
+
+Parse the format of the data type in the extent file to a String variable.
+"""
 function ParseDataFormat(filename::AbstractString)
 
     f = open(filename,"r")
@@ -265,6 +343,15 @@ function ParseDataFormat(filename::AbstractString)
 
 end
 
+
+
+
+
+"""
+    ParseDataESize(file::AbstractString)
+
+Parse the esize in the extent file to a Int32 variable.
+"""
 function ParseDataESize(filename::AbstractString)
 
     f = open(filename,"r")
@@ -276,6 +363,12 @@ function ParseDataESize(filename::AbstractString)
 
 end
 
+
+"""
+    ExtractHeader(h::Array{Header,1},key::AbstractString)
+
+Extracts the values of a field in the header. The output is a vector of the same type as the field. 
+"""
 function ExtractHeader(h::Array{Header,1},key::AbstractString)
 
     keytype = eval(Meta.parse("typeof(SeisMain.InitSeisHeader().$(key))"))
@@ -316,6 +409,16 @@ mutable struct Extent
     title::AbstractString
 end
 
+
+
+
+"""
+    ReadTextHeader(filein)
+
+Reads the extent file of data in seis format. 
+The result outputs in a variable of composite type Extent. 
+Type ?SeisMain.Extent for a detail on the included fields. 
+"""
 function ReadTextHeader(filename)
 
     f = open(filename,"r")
@@ -382,6 +485,22 @@ function ReadTextHeader(filename)
     return extent
 end
 
+
+
+
+
+"""
+    WriteTextHeader(filename,extent,format,esize,filename_d,filename_h)
+
+Writes the extent file, corresponding to the seis format, to the file filename. 
+
+# Arguments
+- `extent`: variable of type Extent to write to file
+- `format`: format of the data type in file @data@
+- `esize`: esize 
+- `filename_d`: path of the @data@ file as a String variable
+- `filename_h`: path of the @headers@ file a a String variable
+"""
 function WriteTextHeader(filename,extent,format,esize,filename_d,filename_h)
     # write the text header
     stream = open(filename, "w")

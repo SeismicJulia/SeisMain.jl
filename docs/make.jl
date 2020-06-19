@@ -16,12 +16,13 @@ makedocs(
 	       		"Guide" => "man/guide.md"],
 		"Library" => Any[
 			  "Public" => "lib/public.md",
+			  "Internals" => "lib/internals.md"
 				],
 		], 
 )
 
 deploydocs(
-    repo = "github.com/SeismicJulia/SeisMain.jl.git",
+    repo = "github.com/fercarozzi/SeisMain.jl.git",
     target = "build",
     deps = nothing,
     make = nothing

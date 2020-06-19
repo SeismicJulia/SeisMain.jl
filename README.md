@@ -11,7 +11,7 @@
 
 This package contains tools to handle seismic data with the Seis format.
 
-At the moment, it is updated and tested against Julia v1.
+At the moment, it is updated and tested in Julia v1.1.
 
 ## Installation
 
@@ -20,12 +20,12 @@ Then, run the Julia application and add the package
 
 ```
 julia>using Pkg
-julia>Pkg.add(PackageSpec(url="https://github.com/SeismicJulia/SeisMain.jl.git"))
+julia>Pkg.add("SeisMain")
 ```
 or
 ```
 julia>]
-pkg> add "https://github.com/SeismicJulia/SeisMain.jl.git"
+pkg> add SeisMain
 ```
 
 Finally, in the julia prompt type

@@ -63,6 +63,12 @@ fileHeader_count["fvn"    ] = 3500
 fileHeader_count["fltf"   ] = 3502
 fileHeader_count["netfh"  ] = 3504
 
+
+"""
+    InitFileHeader
+
+Initializes a variable of composite type fileHeader corresponding to the file header in SEGY format. All the fields are initialized to 0. Type ?SeisMain.fileHeader for a detail of the fields included. 
+"""
 function InitFileHeader()
 	fh = fileHeader(0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,
@@ -70,6 +76,13 @@ function InitFileHeader()
 	return fh
 end
 
+
+"""
+    GrabFileHeader(stream)
+
+Extracts the file header from a standard SEGY rev0 data file, starting from byte 3200.
+
+"""
 function GrabFileHeader(stream)
 
 	position = fileHeader_count["jobid"]
@@ -110,7 +123,15 @@ function GrabFileHeader(stream)
 end
 
 
+"""
+    PutFileHeader(stream,fh)
 
+Writes the file header on a standard SEGY rev0 format file. 
+
+# Arguments
+- `stream::IOStream`: data file in seis format
+- `fh::fileHeader`: file Header to write 
+"""
 function PutFileHeader(stream,fh)
 	position = 3600
 	seek(stream,position)
@@ -316,6 +337,16 @@ segy_count["mark"]   = 208
 segy_count["unass"]  = 210
 segy_count["trace"]  = 240
 
+
+
+
+"""
+    InitSegyHeader()
+
+Initializes a variable of composite type SegyHeader corresponding to the trace header in SEGY format. 
+All the fields are initialized to 0. 
+Type ?SeisMain.SegyHeader for a detail of the fields included. 
+"""
 function InitSegyHeader()
 	h = SegyHeader(0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,
@@ -328,6 +359,20 @@ function InitSegyHeader()
 	return h
 end
 
+
+"""
+    GrabSegyHeader(stream,swap_bytes,nt,file_header_size,j)
+
+Extracts the header from trace j of a file in segy format. 
+The output is of composite type SegyHeader.
+
+# Arguments
+- `stream::IOStream`: data file in segy format
+- `swap_bytes`: boolean variable. Consider it for indianness
+- `nt`: time samples.
+- `file_header_size`: Size of file header in bytes: 0 for su files, 3600 for Segy rev0 standard.
+- `j::Integer`: Trace number
+"""
 function GrabSegyHeader(stream,swap_bytes,nt,file_header_size,j)
 	position = file_header_size + (240+nt*4)*(j-1)
 	seek(stream,position)
@@ -499,6 +544,18 @@ function GrabSegyHeader(stream,swap_bytes,nt,file_header_size,j)
 	return h
 end
 
+
+"""
+    PutSegyHeader(stream,h,nt,file_header_size,j)
+
+Writes the header of trace j to a file in segy format. 
+
+# Arguments
+- `stream::IOStream`: data file in segy format
+- `h::SegyHeader`: header variable to write
+- `file_header_size`: Size of file header in bytes: 0 for su files, 3600 for Segy rev0 standard.
+- `j::Integer`: Trace number
+"""
 function PutSegyHeader(stream,h,nt,file_header_size,j)
 	position = file_header_size + (240+nt*4)*(j-1)
 	seek(stream,position)
@@ -584,6 +641,19 @@ function PutSegyHeader(stream,h,nt,file_header_size,j)
 	write(stream,h.unass)
 end
 
+
+
+"""
+    MapHeaders(h_in,j,map_type)
+
+Maps header attributes from seis byte location to segy byte location in the file and backwards. 
+The output is of type Header or SegyHeader accordingly.
+
+# Arguments
+- `h_in`: header input data
+- `j::Integer`: Trace number
+- `map type`: "SegyToSeis" or "SeisToSegy"
+"""
 function MapHeaders(h_in,j,map_type)
 
 	if map_type=="SegyToSeis"
@@ -640,6 +710,12 @@ primitive type IBMFloat32 32 end
 ieeeOfPieces(fr::UInt32, exp::Int32, sgn::UInt32) = reinterpret(Float32, convert(UInt32,fr >>> 9) | convert(UInt32,exp << 23) | sgn) :: Float32
 import Base.convert
 
+
+"""
+    convert(::Type{Float32}, ibm::IBMFloat32)
+
+Extension of function convert in SeismicJulia to cover IBMFloat32 Floating-point format
+"""
 function convert(::Type{Float32}, ibm::IBMFloat32)
   local fr::UInt32 = ntoh(reinterpret(UInt32, ibm))
   local sgn::UInt32 = fr & 0x80000000 # save sign
