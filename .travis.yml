@@ -5,7 +5,6 @@ julia:
 branches:
   only:
    - master
-   - gh-pages
 
 env:
   global:
@@ -14,13 +13,4 @@ env:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'using Pkg; Pkg.build(); Pkg.test("SeisMain"; coverage=true)'
-
-jobs:
-  include:
-    - stage: "Documentation"
-      julia: 1.1
-      os: linux
-      script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.instantiate()'
-        - julia --project=docs/ docs/make.jl
 
