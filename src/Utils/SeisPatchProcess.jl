@@ -22,25 +22,62 @@ to execute the code type:  julia -p 4 my_code.jl where 4 can be replaced
     with the number of processors you wish to use.
 *Credits: A. Stanton*
 """
-function SeisPatchProcess(in,out,param=Dict())
+function SeisPatchProcess(in,out,functions,param_patch=Dict(),param_f=Dict();patch_file="patch",patch_out="patch_function",rm=1)
 
-    patch_names = SeisPatch(in,out,param)
-    a = pmap(MyProcess,patch_names)
-    SeisUnPatch(patch_names,out,param)
-    #for ipatch = 1 : length(patch_names)
-    #	SeisRemove(patch_names[ipatch])
-    #end
+extent = SeisMain.ReadTextHeader(in)
+println(extent.n1)
+
+    patches,npatch = SeisPatch(in,patch_file;param_patch...)
+
+	list=patch_list[]
+	patches_out = AbstractString[]
+
+	for i=1:npatch	
+	
+ 		p_out=join([patch_out i])
+		push!(list, patch_list(patches[i],p_out,param_f,functions))
+		push!(patches_out,p_out)
+	end
+
+	a = pmap(MyProcess,list)
+
+    SeisUnPatch(patches_out,out;nt=extent.n1,param_patch...)
+ 
+	if rm==1
+		for ipatch = 1 : npatch
+		SeisRemove(patches[ipatch])
+		SeisRemove(patches_out[ipatch])
+		end
+	end
+
 
 end
 
-function MyProcess(filename)
-    d1,h1 = SeisRead(filename)
-    for ifunc = 1 : length(f)
-	func = f[ifunc]
-	d2,h2 = func(d1,h1,f_param)
-	d1 = copy(d2)
-	h1 = copy(h2)
-    end
-    SeisWrite(filename,d1,h1)
-    return(1)
+
+
+
+function MyProcess(params)
+
+	f = params.functions
+	p = params.param_f
+	
+	d1,h1,e1 = SeisRead(params.p_file)
+    
+	for ifunc = 1 : length(f)
+		func = f[ifunc]
+		d2 = func(d1;p[ifunc]...)
+		d1 = copy(d2)
+	#h1 = copy(h2)
+	end
+
+	SeisWrite(params.p_out,d1,h1,e1)
+	return(1)
+    
+end
+
+type patch_list
+       p_file
+       p_out
+       param_f
+       functions
 end
