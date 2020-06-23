@@ -30,7 +30,7 @@ println(extent.n1)
     patches,npatch = SeisPatch(in,patch_file;param_patch...)
 
 	list=patch_list[]
-	patches_out = AbstractString[]
+	patches_out = String[]
 
 	for i=1:npatch	
 	
