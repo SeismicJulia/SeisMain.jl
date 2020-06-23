@@ -75,7 +75,7 @@ function MyProcess(params)
     
 end
 
-type patch_list
+mutable struct patch_list
        p_file
        p_out
        param_f
