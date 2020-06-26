@@ -29,14 +29,14 @@ println(extent.n1)
 
     patches,npatch = SeisPatch(in,patch_file;param_patch...)
 
-	list=patch_list[]
-	patches_out = String[]
+	list = Vector{patch_list}(undef,npatch)
+	patches_out = Vector{String}(undef,npatch)
 
 	for i=1:npatch	
 	
  		p_out=join([patch_out i])
-		push!(list, patch_list(patches[i],p_out,param_f,functions))
-		push!(patches_out,p_out)
+		list[i] = patch_list(patches[i],p_out,param_f,functions)
+		patches_out[i] = p_out
 	end
 
 	a = pmap(MyProcess,list)
