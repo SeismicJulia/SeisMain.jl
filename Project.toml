@@ -1,7 +1,7 @@
 name = "SeisMain"
 uuid = "5696fd22-15e8-11e9-1986-f9ab08703604"
 authors = ["fercarozzi <carozzi@ualberta.ca>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
@@ -12,6 +12,8 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 julia = "1"
+Documenter = "0.27"
+DocumenterTools = "0.1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
