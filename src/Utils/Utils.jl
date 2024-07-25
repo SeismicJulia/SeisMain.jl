@@ -10,7 +10,8 @@ SeisUnPatch,
 SeisWindow,
 SeisWindowHeaders,
 SeisBinData,
-SeisBinHeaders
+SeisBinHeaders,
+download_if_needed
 include("SeisGeometry.jl")
 include("SeisPatch.jl")
 include("SeisWindowPatch.jl")
@@ -24,3 +25,4 @@ include("SeisWindow.jl")
 include("SeisWindowHeaders.jl")
 include("SeisBinData.jl")
 include("SeisBinHeaders.jl")
+include("DownloadIfNeeded.jl")
