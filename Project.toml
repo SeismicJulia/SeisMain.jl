@@ -1,7 +1,7 @@
 name = "SeisMain"
 uuid = "5696fd22-15e8-11e9-1986-f9ab08703604"
 authors = ["fercarozzi <carozzi@ualberta.ca>"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
