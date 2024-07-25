@@ -1,6 +1,3 @@
-using SeisMain
-using Test
-
 param2 = Dict(:style=>"mxmyhaz", :min_imx=>10,:max_imx=>100, :min_imy=>35, :max_imy=>45,
                :min_ih=>1, :max_ih=>6, :min_iaz=>0, :max_iaz=>7);
 
@@ -21,3 +18,16 @@ df,hf,ef=SeisRead(file_final);
 alpha = maximum(db-df)
 
 @test alpha < 0.1
+
+for file in (
+             "section_bin",
+             "section_bin_final",
+             "patch_1",
+             "patch_2",
+             "patch_3",
+             "patch_4",
+            )
+    rm(joinpath(@__DIR__, file))
+    rm(joinpath(@__DIR__, file*"@data@"))
+    rm(joinpath(@__DIR__, file*"@headers@"))
+end
