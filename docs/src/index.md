@@ -1,6 +1,10 @@
+```@meta
+CurrentModule = SeisMain
+```
+
 # SeisMain.jl
 
-* A package to read, write and process seismic data in Julia 
+* A package to read, write and process seismic data in Julia
 
 ## Package Features
 
@@ -12,10 +16,10 @@
 - Once your data is processed, unpatch to a single volume
 
 
-## Installation 
+## Installation
 
 SeisMain, from the SeismicJulia project, can be installed using Julia package manager.
-From the Julia REPL, type `]` to enter the Pkg REPL mode and run 
+From the Julia REPL, type `]` to enter the Pkg REPL mode and run
 ```
-Pkg> add SeisMain
+pkg> add SeisMain
 ```

@@ -1,6 +1,5 @@
 push!(LOAD_PATH, "../src/")
 
-using Pkg; Pkg.add("Documenter")
 using Documenter, SeisMain
 
 makedocs(
@@ -18,12 +17,11 @@ makedocs(
 			  "Public" => "lib/public.md",
 			  "Internals" => "lib/internals.md"
 				],
-		], 
+		],
 )
 
 deploydocs(
-    repo = "github.com/fercarozzi/SeisMain.jl.git",
+    repo = "github.com/SeismicJulia/SeisMain.jl.git",
     target = "build",
-    deps = nothing,
-    make = nothing
+    devbranch = "master"
 )
