@@ -17,7 +17,9 @@ SeisHeaderInfo
 SeisToSegy
 SeisRemove
 SeisWindow
+SeisWindowPatch
 SeisPatch
+SeisPatchProcess
 SeisUnPatch
 SeisGeometry
 SeisBinHeaders
@@ -27,4 +29,5 @@ SeisSort
 ReadSegyHeader
 ExtractSegyHeader
 SegyHeaderInfo
+download_if_needed
 ```
