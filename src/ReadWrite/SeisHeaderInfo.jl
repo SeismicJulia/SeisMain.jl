@@ -5,18 +5,19 @@ Print Seis header information to screen. The input is the name of the data file
 
 # Arguments
 
-- `ntrace=100000` : Number of traces to analyze
+- `ntrace=nothing` : Number of traces to analyze
 
 *Credits: AS, 2015*
 
 """
-function SeisHeaderInfo(filename::String;ntrace::Integer=100000)
+function SeisHeaderInfo(filename::String;ntrace::Union{Integer,Nothing}=nothing)
 
     key = fieldnames(Header)
     nhead = length(key)
     filename_headers = ParseHeaderName(filename)
     stream = open(filename_headers)
     NX = GetNumTraces(filename)
+    newNTrace = isnothing(ntrace) ? NX : ntrace
     h = GrabHeader(stream,1)
     println("Displaying information for ", filename," (",NX," traces):")
     min_h = zeros(Float32,length(key))
@@ -32,11 +33,11 @@ function SeisHeaderInfo(filename::String;ntrace::Integer=100000)
     itrace = 2
     while itrace <= NX
         nx = NX - itrace + 1
-        ntrace = nx > ntrace ? ntrace : nx
+        newNTrace = nx > newNTrace ? newNTrace : nx
         position = 4*nhead*(itrace-1)
         seek(stream,position)
-        h1 = read!(stream,Array{Header32Bits}(undef,nhead*ntrace))
-        h1 = reshape(h1,nhead,convert(Int,ntrace))
+        h1 = read!(stream,Array{Header32Bits}(undef,nhead*newNTrace))
+        h1 = reshape(h1,nhead,convert(Int,newNTrace))
         for ikey = 1 : length(key)
             keytype = eval(Meta.parse("typeof(SeisMain.InitSeisHeader().$(string(key[ikey])))"))
             h2 = reinterpret(keytype,vec(h1[ikey,:]))
@@ -49,9 +50,9 @@ function SeisHeaderInfo(filename::String;ntrace::Integer=100000)
             if (b > max_h[ikey])
                 max_h[ikey] = b
             end
-            mean_h[ikey] += c*ntrace
+            mean_h[ikey] += c*newNTrace
         end
-        itrace += ntrace
+        itrace += newNTrace
     end
 
     for ikey=1:length(key)
