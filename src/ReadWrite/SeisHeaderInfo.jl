@@ -65,4 +65,12 @@ function SeisHeaderInfo(filename::String;ntrace::Union{Integer,Nothing}=nothing)
         @printf("%10s      %11.3f      %11.3f      %11.3f\n",string(key[ikey]),min_h[ikey],max_h[ikey],mean_h[ikey])
     end
 
+    df = DataFrame()
+
+    df.Keys = key |> collect
+    df.Minimum = min_h
+    df.Mean = mean_h
+    df.Maximum = max_h
+
+    return df
 end
